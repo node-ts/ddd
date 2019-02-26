@@ -13,6 +13,7 @@
     "lint": "yarn lint:ts",
     "lint:ts": "tslint --project tsconfig.json 'src/**/*.ts'",
     "lint:fix": "yarn lint --fix",
+    "publish:packages": "npm publish --access=public",
     "test": "jest \"(src\\/.+\\.|/)spec\\.ts$\"",
     "test:coverage": "yarn run test --coverage",
     "test:ci": "yarn run test -w 8",
