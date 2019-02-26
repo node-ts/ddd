@@ -1,5 +1,2 @@
-export * from './aggregate-root'
-export * from './entity'
-export * from './aggregate-root-properties'
-export * from './value-object'
-export * from './error'
+export * from './domain'
+export * from './infrastructure'

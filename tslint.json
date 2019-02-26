@@ -1,3 +1,6 @@
 {
-  "extends": "./node_modules/@node-ts/code-standards/tslint.json"
+  "extends": "./node_modules/@node-ts/code-standards/tslint.json",
+  "rules": {
+    "no-unsafe-any": false
+  }
 }
