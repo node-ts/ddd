@@ -1,6 +1,6 @@
 {
   "name": "@node-ts/ddd",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "A domain driven design framework for enterprise grade applications",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -24,7 +24,9 @@
     "ddd",
     "domain driven design",
     "distributed systems",
-    "enterprise framework"
+    "enterprise framework",
+    "CQRS",
+    "ES"
   ],
   "devDependencies": {
     "@node-ts/code-standards": "^0.0.10",
