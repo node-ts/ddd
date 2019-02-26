@@ -28,6 +28,7 @@
   ],
   "devDependencies": {
     "@node-ts/code-standards": "^0.0.10",
+    "@types/change-case": "^2.3.1",
     "@types/jest": "^24.0.9",
     "jest": "^24.1.0",
     "ts-jest": "^24.0.0",
@@ -72,5 +73,9 @@
         }
       }
     }
+  },
+  "dependencies": {
+    "@node-ts/bus-messages": "^0.0.2",
+    "change-case": "^3.1.0"
   }
 }
