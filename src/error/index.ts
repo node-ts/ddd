@@ -1,1 +1,1 @@
-export * from './function-not-found'
+export * from './domain-error'
