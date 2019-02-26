@@ -13,13 +13,16 @@ export interface WriteRepository <AggregateRootType extends AggregateRoot> {
 
   /**
    * Retrieve an aggregate from the underlying persistence using its Id
-   * @throws AggregateNotFound if no aggregate root with @param id could be found
+   *
+   * @throws {AggregateNotFound} if no aggregate root with @param id could be found
    */
   getById (id: Uuid): Promise<AggregateRootType>
 
   /**
    * Persist the entire aggregate, including any child entities. This operation
    * should be transactional so that all aggregate entities are saved or none.
+   *
+   * @throws {AggregateAlreadyExists} if the aggregate being persisted already exists in the data store
    */
   save (aggregateRoot: AggregateRootType): Promise<void>
 }

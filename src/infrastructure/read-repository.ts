@@ -13,9 +13,6 @@
  * consistency not all the data may be present during the query execution. As such
  * design joins with this in mind (ie: inner joins when all data must be present, outer
  * joins when data is optional).
- *
- * @template EntityType The top level entity that's returned. This can be a table entity
- * or could be a custom type that's returned from a view.
  */
-export interface ReadRepository<EntityType> {
+export interface ReadRepository {
 }
