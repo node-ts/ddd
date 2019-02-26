@@ -11,8 +11,7 @@ type IndexedWith<TTarget> = TTarget & { [key: string]: (event: Event) => void }
  */
 export abstract class AggregateRoot
   extends Entity
-  implements AggregateRootProperties
-{
+  implements AggregateRootProperties {
   version: number
 
   private newEvents: Event[]
@@ -27,7 +26,7 @@ export abstract class AggregateRoot
     const localFunctionName = resolveLocalFunctionName(event)
 
     const indexedThis = this as IndexedWith<this>
-    const localFunction = indexedThis[localFunctionName]
+    const localFunction = indexedThis[localFunctionName] as {}
 
     if (typeof localFunction !== 'function') {
       throw new FunctionNotFound(
