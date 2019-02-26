@@ -1,0 +1,41 @@
+version: 2
+
+defaults: &defaults
+  working_directory: ~/repo
+  docker:
+    - image: circleci/node:8.14.1
+
+jobs:
+  deploy:
+    <<: *defaults
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/repo
+      - run:
+          name: Install dependencies
+          command: yarn
+      - run:
+          name: Lint
+          command: yarn run lint
+      - run:
+          name: Test
+          command: yarn run test
+      - run:
+          name: Build
+          command: yarn run build
+      - run:
+          name: Authenticate with registry
+          command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/repo/.npmrc
+      - run:
+          name: Publish packages
+          command: yarn run publish:packages
+
+workflows:
+  version: 2
+  deploy:
+    jobs:
+      - deploy:
+          filters:
+            branches:
+              only: master
