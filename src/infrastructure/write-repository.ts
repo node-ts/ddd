@@ -5,6 +5,7 @@ import { WriteModel } from './write-model'
 import { Connection, Repository } from 'typeorm'
 import { ClassConstructor, assertUnreachable } from '../util'
 import { AggregateNotFound } from './error'
+import { Logger } from '@node-ts/logger-core'
 
 enum DmlOperation {
   Insert,
@@ -38,7 +39,8 @@ export abstract class WriteRepository <
   constructor (
     @unmanaged() private readonly aggregateRootConstructor: ClassConstructor<AggregateRootType>,
     @unmanaged() private readonly writeModelConstructor: ClassConstructor<WriteModelType>,
-    @unmanaged() private readonly databaseConnection: Connection
+    @unmanaged() private readonly databaseConnection: Connection,
+    @unmanaged() protected readonly logger: Logger
   ) {
     this.repository = databaseConnection.getRepository(writeModelConstructor)
   }
@@ -63,18 +65,20 @@ export abstract class WriteRepository <
    * @throws {AggregateAlreadyExists} if the aggregate being persisted already exists in the data store
    */
   async save (aggregateRoot: AggregateRootType): Promise<void> {
+    this.logger.debug('Saving aggregate root', { aggregateRoot })
     const writeModel = Object.assign(new this.writeModelConstructor(), aggregateRoot)
 
     // TODO Relax the isolation level
     await this.databaseConnection.transaction(async entityManager => {
-      await entityManager.save(writeModel)
       const dmlOperation = determineDmlOperation(aggregateRoot)
 
       switch (dmlOperation) {
         case DmlOperation.Insert:
+          this.logger.debug('Inserting aggregate write model to data store', { writeModel })
           await entityManager.save(writeModel)
           break
         case DmlOperation.Update:
+          this.logger.debug('Updating aggregate write model in data store', { writeModel })
           // TODO agg root version locking
           await entityManager.save(writeModel)
           break

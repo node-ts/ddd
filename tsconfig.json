@@ -2,7 +2,9 @@
   "extends": "./node_modules/@node-ts/code-standards/tsconfig.json",
   "compilerOptions": {
     "skipLibCheck": true,
-    "allowUnreachableCode": false
+    "allowUnreachableCode": true,
+    "noUnusedParameters": false,
+    "noUnusedLocals": false
   },
   "include": [
     "**/*.ts"

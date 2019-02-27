@@ -5,6 +5,7 @@ import { WriteModel } from './write-model'
 import { Uuid } from '../shared'
 import { Mock, IMock, It, Times } from 'typemoq'
 import { EntityManager, Connection, Repository } from 'typeorm'
+import { Logger } from '@node-ts/logger-core'
 
 interface UserProperties extends AggregateRootProperties {
   name: string
@@ -26,16 +27,6 @@ class UserWriteModel extends WriteModel implements UserProperties {
 }
 
 class UserWriteRepository extends WriteRepository<User, UserWriteModel> {
-  async getById (_: Uuid): Promise<User> {
-    const model = new UserWriteModel()
-    model.name = 'name'
-    model.email = 'email'
-    return this.toAggregateRoot(model)
-  }
-
-  async save (_: User): Promise<void> {
-    // NOOP
-  }
 }
 
 describe('WriteRepository', () => {
@@ -53,18 +44,34 @@ describe('WriteRepository', () => {
     sut = new UserWriteRepository(
       User,
       UserWriteModel,
-      connection.object
+      connection.object,
+      Mock.ofType<Logger>().object
     )
   })
 
   describe('when retrieving an aggregate from the data store', () => {
     let user: User
+    let writeModel: UserWriteModel
+
     beforeEach(async () => {
-      user = await sut.getById('1')
+      writeModel = new UserWriteModel()
+      writeModel.id = '1'
+      writeModel.name = 'name'
+      writeModel.email = 'email'
+
+      repository
+        .setup(async r => r.findOne(writeModel.id))
+        .returns(async () => writeModel)
+
+      user = await sut.getById(writeModel.id)
     })
 
     it('should map the model to an aggregate', () => {
-      expect(user).toBeDefined()
+      expect(user).toMatchObject({
+        id: writeModel.id,
+        name: writeModel.name,
+        email: writeModel.email
+      })
       expect(user.changePassword).toBeDefined()
     })
   })
@@ -72,17 +79,18 @@ describe('WriteRepository', () => {
   describe('when saving an aggregate root', () => {
     let entityManager: IMock<EntityManager>
     let user: User
+
     beforeEach(() => {
+      entityManager = Mock.ofType<EntityManager>()
       connection
         .setup(async c => c.transaction(It.isAny()))
         .callback(async unitOfWork => unitOfWork(entityManager.object))
 
       user = new User('2')
-      entityManager = Mock.ofType<EntityManager>()
     })
 
     describe('and the aggregate is newly created', () => {
-      fit('should invoke `save` on the orm', async () => {
+      it('should invoke `save` on the orm', async () => {
         await sut.save(user)
         entityManager.verify(
           async e => e.save(It.isAny()),
