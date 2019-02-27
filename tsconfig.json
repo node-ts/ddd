@@ -1,5 +1,9 @@
 {
   "extends": "./node_modules/@node-ts/code-standards/tsconfig.json",
+  "compilerOptions": {
+    "skipLibCheck": true,
+    "allowUnreachableCode": false
+  },
   "include": [
     "**/*.ts"
   ],

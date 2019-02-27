@@ -32,10 +32,15 @@
     "@node-ts/code-standards": "^0.0.10",
     "@types/change-case": "^2.3.1",
     "@types/jest": "^24.0.9",
+    "inversify": "^5.0.1",
     "jest": "^24.1.0",
     "ts-jest": "^24.0.0",
     "tslint": "^5.13.0",
+    "typemoq": "^2.1.0",
     "typescript": "^3.3.3333"
+  },
+  "peerDependencies": {
+    "inversify": "^5.0.1"
   },
   "jest": {
     "collectCoverageFrom": [
@@ -45,6 +50,9 @@
     "transform": {
       "^.+\\.ts$": "ts-jest"
     },
+    "setupFilesAfterEnv": [
+      "<rootDir>/test/setup.ts"
+    ],
     "transformIgnorePatterns": [
       "[/\\\\]node_modules[/\\\\](?!node-ts.+).+\\.ts$"
     ],
@@ -78,6 +86,8 @@
   },
   "dependencies": {
     "@node-ts/bus-messages": "^0.0.2",
-    "change-case": "^3.1.0"
+    "change-case": "^3.1.0",
+    "reflect-metadata": "^0.1.13",
+    "typeorm": "^0.2.14"
   }
 }

@@ -12,7 +12,17 @@ type IndexedWith<TTarget> = TTarget & { [key: string]: (event: Event) => void }
 export abstract class AggregateRoot
   extends Entity
   implements AggregateRootProperties {
+
+  /**
+   * The current version of the aggreage after all updates have been applied. Each update of
+   * the object, aka each time an event is applied, increments this value by one.
+   */
   version: number
+
+  /**
+   * The version of the aggregate as it was when retrieved from the data store.
+   */
+  readonly fetchVersion: number
 
   private newEvents: Event[]
 
