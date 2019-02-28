@@ -97,7 +97,7 @@ export class UserDisabled extends Event {
    */
   constructor (
     readonly userId: Uuid,
-    reaodnly isEnabled: boolean
+    readonly isEnabled: boolean
   ) {
   }
 }
@@ -158,7 +158,7 @@ export class User extends AggregateRoot implements UserProperties {
    * Disable the user account so they can no longer log in
    */
   disable (): void {
-    const userDisabled = new UserDisabled(this.id)
+    const userDisabled = new UserDisabled(this.id, false)
     super.when(userDisabled)
   }
   
