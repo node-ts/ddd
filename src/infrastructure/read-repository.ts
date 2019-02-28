@@ -1,3 +1,10 @@
+import { EntityProperties } from '../domain'
+import { injectable, unmanaged } from 'inversify'
+import { ClassConstructor } from '@node-ts/logger-core'
+import { Uuid } from '../shared'
+import { Repository, Connection } from 'typeorm'
+import { EntityNotFound } from './error'
+
 /**
  * Read repositories return any object, real or projected, from the
  * underlying persistence. The simplest return entities from a single
@@ -14,5 +21,28 @@
  * design joins with this in mind (ie: inner joins when all data must be present, outer
  * joins when data is optional).
  */
-export interface ReadRepository {
+@injectable()
+export class ReadRepository<EntityType extends EntityProperties> {
+
+  protected readonly repository: Repository<EntityType>
+
+  constructor (
+    databaseConnection: Connection,
+    @unmanaged() private readonly readModelType: ClassConstructor<EntityType>
+  ) {
+    this.repository = databaseConnection.getRepository(this.readModelType)
+  }
+
+  /**
+   * Returns the read model based on its id
+   * @throws {EntityNotFound}
+   */
+  async getById (id: Uuid): Promise<EntityType> {
+    const readModel = await this.repository.findOne(id)
+    if (!readModel) {
+      throw new EntityNotFound(this.readModelType.name, id)
+    } else {
+      return readModel
+    }
+  }
 }

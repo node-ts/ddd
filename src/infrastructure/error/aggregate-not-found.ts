@@ -10,5 +10,6 @@ export class AggregateNotFound extends PersistenceError {
     readonly id: Uuid
   ) {
     super('Requested aggregate does not exist')
+    Object.setPrototypeOf(this, new.target.prototype)
   }
 }

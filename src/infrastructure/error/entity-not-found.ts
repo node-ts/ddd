@@ -1,12 +1,12 @@
 import { PersistenceError } from './persistence-error'
 import { Uuid } from '../../shared'
 
-export class DeletingNewAggregate extends PersistenceError {
+export class EntityNotFound extends PersistenceError {
   constructor (
-    readonly aggregateName: string,
+    readonly entityName: string,
     readonly id: Uuid
   ) {
-    super('Attempted to delete an aggregate that has never been saved in the data store')
+    super('Could not find entity in data store')
     Object.setPrototypeOf(this, new.target.prototype)
   }
 }
