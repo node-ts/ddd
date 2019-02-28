@@ -204,6 +204,7 @@ export class UserWriteRepository extends WriteRepository<User, UserWriteModel> {
 // user-service.ts
 import { injectable, inject } from 'inversify'
 import { OAuthService } from './services'
+import { RegisterUser, ChangePasswordForUser, DisableUser } from './commands'
 
 @injectable()
 export class UserService {
