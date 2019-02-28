@@ -24,11 +24,18 @@ export abstract class AggregateRoot
    */
   readonly fetchVersion: number
 
+  /**
+   * If this aggregate has been flagged for deletion
+   */
+  isDeleted: boolean
+
   private newEvents: Event[]
 
   constructor (id: string) {
     super(id)
     this.version = 0
+    this.fetchVersion = 0
+    this.isDeleted = false
     this.newEvents = []
   }
 
@@ -52,6 +59,11 @@ export abstract class AggregateRoot
 
   get changes (): Event[] {
     return this.newEvents
+  }
+
+  protected delete<EventType extends Event> (deletionEvent: EventType): void {
+    this.addEvent(deletionEvent)
+    this.isDeleted = true
   }
 
   private addEvent (event: Event): void {

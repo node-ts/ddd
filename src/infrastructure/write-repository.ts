@@ -4,12 +4,13 @@ import { unmanaged, injectable } from 'inversify'
 import { WriteModel } from './write-model'
 import { Connection, Repository } from 'typeorm'
 import { ClassConstructor, assertUnreachable } from '../util'
-import { AggregateNotFound } from './error'
+import { AggregateNotFound, DeletingNewAggregate } from './error'
 import { Logger } from '@node-ts/logger-core'
 
 enum DmlOperation {
   Insert,
-  Update
+  Update,
+  Delete
 }
 
 @injectable()
@@ -68,23 +69,38 @@ export abstract class WriteRepository <
     this.logger.debug('Saving aggregate root', { aggregateRoot })
     const writeModel = Object.assign(new this.writeModelConstructor(), aggregateRoot)
 
-    // TODO Relax the isolation level
-    await this.databaseConnection.transaction(async entityManager => {
-      const dmlOperation = determineDmlOperation(aggregateRoot)
-
-      switch (dmlOperation) {
-        case DmlOperation.Insert:
-          this.logger.debug('Inserting aggregate write model to data store', { writeModel })
-          await entityManager.save(writeModel)
-          break
-        case DmlOperation.Update:
-          this.logger.debug('Updating aggregate write model in data store', { writeModel })
-          // TODO agg root version locking
-          await entityManager.save(writeModel)
-          break
-        // TODO delete operation
-        default:
-          assertUnreachable(dmlOperation)
+    return new Promise<void>(async (resolve, reject) => {
+      let caughtError: Error | undefined
+      // TODO Relax the isolation level
+      await this.databaseConnection.transaction(async entityManager => {
+        try {
+          const dmlOperation = this.determineDmlOperation(aggregateRoot)
+          switch (dmlOperation) {
+            case DmlOperation.Insert:
+              this.logger.debug('Inserting aggregate write model to data store', { writeModel })
+              await entityManager.save(writeModel)
+              break
+            case DmlOperation.Update:
+              this.logger.debug('Updating aggregate write model in data store', { writeModel })
+              // TODO agg root version locking
+              await entityManager.save(writeModel)
+              break
+            case DmlOperation.Delete:
+              // TODO agg root version locking
+              this.logger.debug('Deleting aggregate write model from data store', { writeModel })
+              await entityManager.delete(this.writeModelConstructor, writeModel.id)
+              break
+            default:
+              assertUnreachable(dmlOperation)
+          }
+        } catch (err) {
+          caughtError = err
+        }
+      })
+      if (caughtError) {
+        reject(caughtError)
+      } else {
+        resolve()
       }
     })
   }
@@ -100,12 +116,16 @@ export abstract class WriteRepository <
       { fetchVersion: model.version }
     )
   }
-}
 
-function determineDmlOperation (aggregateRoot: AggregateRoot): DmlOperation {
-  if (aggregateRoot.fetchVersion === 0) {
-    return DmlOperation.Insert
-  } else {
-    return DmlOperation.Update
+  private determineDmlOperation (aggregateRoot: AggregateRoot): DmlOperation {
+    if (aggregateRoot.isDeleted && aggregateRoot.fetchVersion === 0) {
+      throw new DeletingNewAggregate(this.aggregateRootConstructor.name, aggregateRoot.id)
+    } else if (aggregateRoot.fetchVersion === 0) {
+      return DmlOperation.Insert
+    } else if (aggregateRoot.isDeleted) {
+      return DmlOperation.Delete
+    } else {
+      return DmlOperation.Update
+    }
   }
 }
