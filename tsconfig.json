@@ -7,7 +7,7 @@
     "noUnusedLocals": false
   },
   "include": [
-    "**/*.ts"
+    "src/**/*.ts"
   ],
   "exclude": [
     "**/*.spec.ts",

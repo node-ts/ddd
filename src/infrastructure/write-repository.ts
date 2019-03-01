@@ -69,6 +69,13 @@ export abstract class WriteRepository <
     this.logger.debug('Saving aggregate root', { aggregateRoot })
     const writeModel = Object.assign(new this.writeModelConstructor(), aggregateRoot)
 
+    return this.doSave(aggregateRoot, writeModel)
+  }
+
+  protected async doSave (
+    aggregateRoot: AggregateRootType,
+    writeModel: WriteModelType
+  ): Promise<void> {
     return new Promise<void>(async (resolve, reject) => {
       let caughtError: Error | undefined
       // TODO Relax the isolation level
