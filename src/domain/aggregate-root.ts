@@ -3,15 +3,16 @@ import { AggregateRootProperties } from './aggregate-root-properties'
 import { Event } from '@node-ts/bus-messages'
 import { FunctionNotFound } from './error/function-not-found'
 import { pascal } from 'change-case'
+import { Uuid } from '../shared'
 
 type IndexedWith<TTarget> = TTarget & { [key: string]: (event: Event) => void }
 
 /**
  * The root entity of an aggregate
  */
-export abstract class AggregateRoot
-  extends Entity
-  implements AggregateRootProperties {
+export abstract class AggregateRoot<TId = Uuid>
+  extends Entity<TId>
+  implements AggregateRootProperties<TId> {
 
   /**
    * The current version of the aggreage after all updates have been applied. Each update of
@@ -31,7 +32,7 @@ export abstract class AggregateRoot
 
   private newEvents: Event[]
 
-  constructor (id: string) {
+  constructor (id: TId) {
     super(id)
     this.version = 0
     this.fetchVersion = 0
