@@ -3,14 +3,30 @@ import { AggregateRootProperties } from './aggregate-root-properties'
 import { Event } from '@node-ts/bus-messages'
 import { FunctionNotFound } from './error/function-not-found'
 import { pascal } from 'change-case'
-import { Uuid } from '../shared'
+import { IdType } from '../shared'
 
 type IndexedWith<TTarget> = TTarget & { [key: string]: (event: Event) => void }
+
+
+/*
+  Aggregate Root should support
+
+  - optional version property
+  - choice of uuid PK or identity id
+*/
+
+/*
+  Write Repository should support
+
+  - presence or absence of version property
+  - choice
+*/
+
 
 /**
  * The root entity of an aggregate
  */
-export abstract class AggregateRoot<TId = Uuid>
+export abstract class AggregateRoot<TId extends IdType>
   extends Entity<TId>
   implements AggregateRootProperties<TId> {
 

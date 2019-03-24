@@ -16,7 +16,7 @@ enum DmlOperation {
 @injectable()
 export abstract class WriteRepository <
   AggregateRootType extends AggregateRoot,
-  WriteModelType extends WriteModel
+  WriteModelType extends WriteModel,
 > {
   /**
    * A respository that concretely deals with @template WriteModelType. This should rarely
