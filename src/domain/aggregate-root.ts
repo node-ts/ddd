@@ -40,7 +40,20 @@ export abstract class AggregateRoot<TId = Uuid>
     this.newEvents = []
   }
 
-  when (event: Event): void {
+  /**
+   * This method is used for testing only, and shouldn't be called directly by your aggregate.
+   * When testing it's useful to assert what events are being created by your aggregate as different
+   * methods are called. Oftentimes if the subject under test is an aggregate root that's been
+   * created via its static creation method, the event from that process is added into `.changes`.
+   *
+   * It's at this point that this method should be called, ie: after the static creation method but
+   * before the method that's under test.
+   */
+  clearChanges (): void {
+    this.newEvents = []
+  }
+
+  protected when (event: Event): void {
     const localFunctionName = resolveLocalFunctionName(event)
 
     const indexedThis = this as IndexedWith<this>
