@@ -64,4 +64,17 @@ describe('AggregateRoot', () => {
     })
   })
 
+  describe('when changes are cleared', () => {
+    const somethingHappens = new SomethingHappens()
+    beforeEach(() => {
+      sut.when(somethingHappens)
+    })
+
+    it('should have no changes', () => {
+      expect(sut.changes).toHaveLength(1)
+      sut.clearChanges()
+      expect(sut.changes).toHaveLength(0)
+    })
+  })
+
 })
