@@ -38,7 +38,8 @@ describe('AggregateRoot', () => {
   describe('when an event is added', () => {
     const somethingHappens = new SomethingHappens()
     beforeEach(() => {
-      sut.when(somethingHappens)
+      // tslint:disable-next-line:no-string-literal Naughty way to test protected methods
+      sut['when'](somethingHappens)
     })
 
     it('should add it to the list of changes', () => {
@@ -67,7 +68,8 @@ describe('AggregateRoot', () => {
   describe('when changes are cleared', () => {
     const somethingHappens = new SomethingHappens()
     beforeEach(() => {
-      sut.when(somethingHappens)
+      // tslint:disable-next-line:no-string-literal Naughty way to test protected methods
+      sut['when'](somethingHappens)
     })
 
     it('should have no changes', () => {

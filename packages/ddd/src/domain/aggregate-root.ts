@@ -53,7 +53,7 @@ export abstract class AggregateRoot<TId = Uuid>
     this.newEvents = []
   }
 
-  when (event: Event): void {
+  protected when (event: Event): void {
     const localFunctionName = resolveLocalFunctionName(event)
 
     const indexedThis = this as IndexedWith<this>
