@@ -1,5 +1,9 @@
-# Prefer yarn.lock
+# We don't include this in source control, but need it for build
 npm-shrinkwrap.json
+
+docker/**/*
+
+node_modules
 
 #### joe made this: http://goel.io/joe
 

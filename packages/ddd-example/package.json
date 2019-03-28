@@ -1,0 +1,56 @@
+{
+  "name": "@node-ts/ddd-example",
+  "version": "0.0.18",
+  "description": "An example solution that shows how to create a domain driven design framework for enterprise grade applications",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "repository": "https://github.com/node-ts/ddd.git",
+  "author": "Andrew den Hertog <andrew.denhertog@gmail.com>",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "build": "tsc --project tsconfig.json --stripInternal --outDir dist/ --declaration",
+    "dev": "nodemon --watch ./src -e ts --exec \"yarn dev:run\"",
+    "dev:run": "yarn run build && node dist/index.js",
+    "lint": "yarn lint:ts",
+    "lint:ts": "tslint --project tsconfig.json 'src/**/*.ts'",
+    "lint:fix": "yarn lint --fix",
+    "publish:packages": "npm publish --access=public",
+    "test": "jest \"(src\\/.+\\.|/)spec\\.ts$\"",
+    "test:coverage": "yarn run test --coverage",
+    "test:ci": "yarn run test -w 8",
+    "test:watch": "yarn run test --watch"
+  },
+  "keywords": [
+    "typescript",
+    "ddd",
+    "domain driven design",
+    "distributed systems",
+    "enterprise framework",
+    "CQRS",
+    "ES"
+  ],
+  "devDependencies": {
+    "@node-ts/code-standards": "^0.0.10",
+    "@node-ts/logger-core": "^0.0.9",
+    "@types/jest": "^24.0.9",
+    "inversify": "^5.0.1",
+    "jest": "^24.1.0",
+    "nodemon": "^1.18.10",
+    "ts-jest": "^24.0.0",
+    "tslint": "^5.13.0",
+    "typemoq": "^2.1.0",
+    "typescript": "^3.3.3333"
+  },
+  "peerDependencies": {
+    "@node-ts/logger-core": "^0.0.9",
+    "inversify": "^5.0.1"
+  },
+  "dependencies": {
+    "@node-ts/bus-messages": "^0.0.2",
+    "@node-ts/ddd": "^0.0.18",
+    "change-case": "^3.1.0",
+    "reflect-metadata": "^0.1.13",
+    "typeorm": "^0.2.14"
+  }
+}

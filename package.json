@@ -1,48 +1,43 @@
 {
-  "name": "@node-ts/ddd",
-  "version": "0.0.18",
-  "description": "A domain driven design framework for enterprise grade applications",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "repository": "https://github.com/node-ts/ddd.git",
+  "name": "@node-ts/ddd-repo",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "scripts": {
+    "bootstrap": "lerna bootstrap",
+    "build": "lerna run build",
+    "lint": "lerna run lint",
+    "lint:fix": "lerna run lint:fix",
+    "test:unit": "dotenv -- jest \"packages\\/.*[\\/]?(src\\/.+\\.|/)spec\\.ts$\"",
+    "test:unit:coverage": "yarn run test:unit --coverage",
+    "test:unit:ci": "yarn run test:unit -w 8",
+    "test:unit:watch": "yarn run test:unit --watch",
+    "test:integration": "yarn run test:integration:run",
+    "test:integration:watch": "yarn run test:integration:run --watch",
+    "test:integration:run": "dotenv -- jest \"$TEST_SCOPE[\\/]?(src\\/.+\\.|/)integration\\.ts$\"",
+    "test:integration:run:ci": "yarn run test:integration:run -w 8"
+  },
   "author": "Andrew den Hertog <andrew.denhertog@gmail.com>",
   "license": "MIT",
-  "private": false,
-  "scripts": {
-    "build": "tsc --project tsconfig.json --stripInternal --outDir dist/ --declaration",
-    "lint": "yarn lint:ts",
-    "lint:ts": "tslint --project tsconfig.json 'src/**/*.ts'",
-    "lint:fix": "yarn lint --fix",
-    "publish:packages": "npm publish --access=public",
-    "test": "jest \"(src\\/.+\\.|/)spec\\.ts$\"",
-    "test:coverage": "yarn run test --coverage",
-    "test:ci": "yarn run test -w 8",
-    "test:watch": "yarn run test --watch"
-  },
-  "keywords": [
-    "typescript",
-    "ddd",
-    "domain driven design",
-    "distributed systems",
-    "enterprise framework",
-    "CQRS",
-    "ES"
-  ],
+  "dependencies": {},
   "devDependencies": {
     "@node-ts/code-standards": "^0.0.10",
-    "@node-ts/logger-core": "^0.0.9",
-    "@types/change-case": "^2.3.1",
-    "@types/jest": "^24.0.9",
-    "inversify": "^5.0.1",
-    "jest": "^24.1.0",
+    "@types/jest": "^24.0.11",
+    "dotenv-cli": "^1.4.0",
+    "jest": "^24.5.0",
+    "lerna": "^3.10.5",
+    "reflect-metadata": "^0.1.13",
     "ts-jest": "^24.0.0",
-    "tslint": "^5.13.0",
-    "typemoq": "^2.1.0",
+    "tslib": "^1.9.3",
     "typescript": "^3.3.3333"
   },
-  "peerDependencies": {
-    "inversify": "^5.0.1",
-    "@node-ts/logger-core": "^0.0.9"
+  "workspaces": {
+    "nohoist": [
+      "**"
+    ],
+    "packages": [
+      "packages/*"
+    ]
   },
   "jest": {
     "collectCoverageFrom": [
@@ -52,9 +47,6 @@
     "transform": {
       "^.+\\.ts$": "ts-jest"
     },
-    "setupFilesAfterEnv": [
-      "<rootDir>/test/setup.ts"
-    ],
     "transformIgnorePatterns": [
       "[/\\\\]node_modules[/\\\\](?!node-ts.+).+\\.ts$"
     ],
@@ -62,7 +54,10 @@
       ".*\\.d\\.ts",
       "<rootDir>/node_modules/"
     ],
-    "testRegex": "(src\\/.+\\.|/)spec\\.ts$",
+    "testRegex": "(src\\/.+\\.|/)(integration|spec)\\.ts$",
+    "setupFilesAfterEnv": [
+      "<rootDir>/test/setup.ts"
+    ],
     "modulePathIgnorePatterns": [
       "dist/"
     ],
@@ -78,18 +73,17 @@
     ],
     "globals": {
       "ts-jest": {
-        "babelConfig": false,
-        "diagnostics": {
-          "pretty": true,
-          "warnOnly": true
-        }
+        "babelConfig": true
       }
     }
   },
-  "dependencies": {
-    "@node-ts/bus-messages": "^0.0.2",
-    "change-case": "^3.1.0",
-    "reflect-metadata": "^0.1.13",
-    "typeorm": "^0.2.14"
-  }
+  "keywords": [
+    "typescript",
+    "ddd",
+    "domain driven design",
+    "distributed systems",
+    "enterprise framework",
+    "CQRS",
+    "ES"
+  ]
 }

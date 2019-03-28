@@ -1,16 +1,12 @@
 {
   "extends": "./node_modules/@node-ts/code-standards/tsconfig.json",
+  "exclude": ["**/dist"],
   "compilerOptions": {
-    "skipLibCheck": true,
+    "lib": ["es2017", "dom"],
+
     "allowUnreachableCode": true,
-    "noUnusedParameters": false,
-    "noUnusedLocals": false
-  },
-  "include": [
-    "src/**/*.ts"
-  ],
-  "exclude": [
-    "**/*.spec.ts",
-    "**/*.d.ts"
-  ]
+    "allowUnusedLabels": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false
+  }
 }
