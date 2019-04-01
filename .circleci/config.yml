@@ -22,11 +22,11 @@ jobs:
           name: Lint
           command: yarn run lint
       - run:
-          name: Test
-          command: yarn run test
-      - run:
           name: Build
           command: yarn run build
+      - run:
+          name: Test
+          command: yarn run test
       - run:
           name: Authenticate with registry
           command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/repo/.npmrc
