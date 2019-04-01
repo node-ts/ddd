@@ -84,6 +84,7 @@ describe('WriteRepository', () => {
         name: writeModel.name,
         email: writeModel.email
       })
+      // tslint:disable-next-line:no-unbound-method Not invoking, just checking presence of
       expect(user.changePassword).toBeDefined()
     })
   })
