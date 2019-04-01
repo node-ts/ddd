@@ -31,11 +31,8 @@ jobs:
           name: Authenticate with registry
           command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/repo/.npmrc
       - run:
-          name: Publish ddd package
-          command: npm publish packages/ddd --access=public
-      - run:
-          name: Publish ddd-types
-          command: npm publish packages/ddd-types --access=public
+          name: Publish
+          command: npx lerna publish from-package --yes
 
 workflows:
   version: 2

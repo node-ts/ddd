@@ -19,6 +19,9 @@
     "test:ci": "yarn run test -w 8",
     "test:watch": "yarn run test --watch"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "keywords": [
     "typescript",
     "ddd",
