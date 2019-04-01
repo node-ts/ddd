@@ -6,6 +6,29 @@ defaults: &defaults
     - image: circleci/node:8.14.1
 
 jobs:
+  build:
+    <<: *defaults
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/repo
+      - run:
+          name: Install dependencies
+          command: yarn
+      - run:
+          name: Bootstrap monorepo
+          command: yarn run bootstrap
+      - run:
+          name: Lint
+          command: yarn run lint
+      - run:
+          name: Build
+          command: yarn run build
+      - run:
+          name: Test
+          command: yarn run test
+
+
   deploy:
     <<: *defaults
     steps:
@@ -36,8 +59,13 @@ jobs:
 
 workflows:
   version: 2
-  deploy:
+  build-deploy:
     jobs:
+      - build:
+          filters:
+            branches:
+              ignore:
+                - master
       - deploy:
           filters:
             branches:
