@@ -16,6 +16,9 @@ jobs:
           name: Install dependencies
           command: yarn
       - run:
+          name: Bootstrap monorepo
+          command: yarn run bootstrap
+      - run:
           name: Lint
           command: yarn run lint
       - run:
