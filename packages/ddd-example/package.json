@@ -7,7 +7,7 @@
   "repository": "https://github.com/node-ts/ddd.git",
   "author": "Andrew den Hertog <andrew.denhertog@gmail.com>",
   "license": "MIT",
-  "private": false,
+  "private": true,
   "scripts": {
     "build": "tsc --project tsconfig.json --stripInternal --outDir dist/ --declaration",
     "dev": "nodemon --watch ./src -e ts --exec \"yarn dev:run\"",
