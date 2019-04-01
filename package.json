@@ -8,6 +8,7 @@
     "build": "lerna run build",
     "lint": "lerna run lint",
     "lint:fix": "lerna run lint:fix",
+    "test": "yarn run test:unit && yarn run test:integration --passWithNoTests",
     "test:unit": "dotenv -- jest \"packages\\/.*[\\/]?(src\\/.+\\.|/)spec\\.ts$\"",
     "test:unit:coverage": "yarn run test:unit --coverage",
     "test:unit:ci": "yarn run test:unit -w 8",

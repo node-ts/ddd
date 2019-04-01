@@ -32,10 +32,7 @@
     "@node-ts/code-standards": "^0.0.10",
     "@node-ts/logger-core": "^0.0.9",
     "@types/change-case": "^2.3.1",
-    "@types/jest": "^24.0.9",
     "inversify": "^5.0.1",
-    "jest": "^24.1.0",
-    "ts-jest": "^24.0.0",
     "tslint": "^5.13.0",
     "typemoq": "^2.1.0",
     "typescript": "^3.3.3333"
@@ -43,48 +40,6 @@
   "peerDependencies": {
     "@node-ts/logger-core": "^0.0.9",
     "inversify": "^5.0.1"
-  },
-  "jest": {
-    "collectCoverageFrom": [
-      "packages/**/*.ts",
-      "!packages/**/index.ts"
-    ],
-    "transform": {
-      "^.+\\.ts$": "ts-jest"
-    },
-    "setupFilesAfterEnv": [
-      "<rootDir>/test/setup.ts"
-    ],
-    "transformIgnorePatterns": [
-      "[/\\\\]node_modules[/\\\\](?!node-ts.+).+\\.ts$"
-    ],
-    "coveragePathIgnorePatterns": [
-      ".*\\.d\\.ts",
-      "<rootDir>/node_modules/"
-    ],
-    "testRegex": "(src\\/.+\\.|/)spec\\.ts$",
-    "modulePathIgnorePatterns": [
-      "dist/"
-    ],
-    "moduleFileExtensions": [
-      "ts",
-      "js",
-      "json"
-    ],
-    "testEnvironment": "node",
-    "bail": true,
-    "coverageReporters": [
-      "html"
-    ],
-    "globals": {
-      "ts-jest": {
-        "babelConfig": false,
-        "diagnostics": {
-          "pretty": true,
-          "warnOnly": true
-        }
-      }
-    }
   },
   "dependencies": {
     "@node-ts/bus-messages": "^0.0.2",
