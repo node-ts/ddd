@@ -1,6 +1,6 @@
 {
   "name": "@node-ts/ddd-example",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "An example solution that shows how to create a domain driven design framework for enterprise grade applications",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
