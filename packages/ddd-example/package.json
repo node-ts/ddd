@@ -32,7 +32,7 @@
   ],
   "devDependencies": {
     "@node-ts/code-standards": "^0.0.10",
-    "@node-ts/logger-core": "^0.0.9",
+    "@node-ts/logger-core": "^0.0.13",
     "@types/jest": "^24.0.9",
     "inversify": "^5.0.1",
     "jest": "^24.1.0",
@@ -47,7 +47,7 @@
     "inversify": "^5.0.1"
   },
   "dependencies": {
-    "@node-ts/bus-messages": "^0.0.2",
+    "@node-ts/bus-messages": "^0.1.0",
     "@node-ts/ddd": "^0.1.1",
     "@node-ts/ddd-types": "^0.1.1",
     "change-case": "^3.1.0",

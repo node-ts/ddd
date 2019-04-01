@@ -1,5 +1,7 @@
 # @node-ts/ddd
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/node-ts/ddd.svg)](https://greenkeeper.io/)
+
 Domain driven design (DDD) is an approach to software design that values simplicity and modeling code as closely to the business domain as possible. This results in code that can be easily understood by the business and evolved as the needs of the business domain change.
 
 By isolating domain code away from all other concerns of the system like infrastructure, security, transportation, serialization etc; the complexity of the system grows only as large as the complexity of the business or problem domain itself.

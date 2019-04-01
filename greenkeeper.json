@@ -1,0 +1,12 @@
+{
+  "groups": {
+    "default": {
+      "packages": [
+        "package.json",
+        "packages/ddd-example/package.json",
+        "packages/ddd-types/package.json",
+        "packages/ddd/package.json"
+      ]
+    }
+  }
+}
