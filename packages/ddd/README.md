@@ -13,7 +13,7 @@ If you have already decided to use DDD for your application, this package is par
 Install the `@node-ts/ddd` package and its dependencies:
 
 ```sh
-npm i @node-ts/ddd @node-ts/logger-core @node-ts/bus-messages inversify --save
+npm i @node-ts/ddd @node-ts/ddd-types @node-ts/logger-core @node-ts/bus-messages inversify --save
 ```
 
 ## Domain layer
@@ -35,7 +35,7 @@ We can model that these actions have occured using bus `Events` (see [Bus Messag
 ```typescript
 // user-registered.ts
 import { Event } from '@node-ts/bus-messages'
-import { Uuid } from '@node-ts/ddd'
+import { Uuid } from '@node-ts/ddd-types'
 
 export class UserRegistered extends Event {
   static readonly NAME = 'org/account/user-registered'
@@ -60,7 +60,7 @@ export class UserRegistered extends Event {
 ```typescript
 // user-password-changed.ts
 import { Event } from '@node-ts/bus-messages'
-import { Uuid } from '@node-ts/ddd'
+import { Uuid } from '@node-ts/ddd-types'
 
 export class UserPasswordChanged extends Event {
   static readonly NAME = 'org/account/user-password-changed'
@@ -83,7 +83,7 @@ export class UserPasswordChanged extends Event {
 ```typescript
 // user-disabled.ts
 import { Event } from '@node-ts/bus-messages'
-import { Uuid } from '@node-ts/ddd'
+import { Uuid } from '@node-ts/ddd-types'
 
 export class UserDisabled extends Event {
   static readonly NAME = 'org/account/user-disabled'
@@ -109,7 +109,8 @@ The following is an example implementation of the `User` class:
 
 ```typescript
 // user.ts
-import { AggregateRootProperties, AggregateRoot, Uuid } from '@node-ts/ddd'
+import { AggregateRootProperties } from '@node-ts/ddd'
+import { AggregateRoot, Uuid } from '@node-ts/ddd-types'
 import { UserRegistered, UserPasswordChanged, UserDisabled } from './events'
 import { OAuthService } from './services'
 

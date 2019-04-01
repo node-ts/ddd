@@ -1,11 +1,4 @@
-import { Uuid } from '../shared'
-
-/**
- * Represents an entity object, that's identifiable by its id value
- */
-export interface EntityProperties<TId = Uuid> {
-  id: TId
-}
+import { Uuid, EntityProperties } from '@node-ts/ddd-types'
 
 export abstract class Entity<TId = Uuid> implements EntityProperties<TId> {
 

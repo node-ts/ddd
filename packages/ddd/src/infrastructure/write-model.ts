@@ -1,4 +1,4 @@
-import { AggregateRootProperties } from '../domain'
+import { AggregateRootProperties } from '@node-ts/ddd-types'
 import { Model } from './model'
 import { Column } from 'typeorm'
 

@@ -1,5 +1,5 @@
 import { Command } from '@node-ts/bus-messages'
-import { Uuid } from '@node-ts/ddd'
+import { Uuid } from '@node-ts/ddd-types'
 
 export class SilenceAlarmSiren extends Command {
   static NAME = 'node-ts/ddd-example/alarm/silence-alarm-siren'

@@ -1,5 +1,5 @@
-import { EntityProperties } from './entity'
-import { Uuid } from '../shared'
+import { EntityProperties } from './entity-properties'
+import { Uuid } from './uuid'
 
 export interface AggregateRootProperties<IdType = Uuid> extends EntityProperties<IdType> {
   /**

@@ -1,5 +1,5 @@
 import { PersistenceError } from './persistence-error'
-import { Uuid } from '../../shared'
+import { Uuid } from '@node-ts/ddd-types'
 
 export class DeletingNewAggregate extends PersistenceError {
   constructor (

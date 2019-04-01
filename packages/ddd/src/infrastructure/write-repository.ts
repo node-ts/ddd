@@ -1,5 +1,5 @@
 import { AggregateRoot } from '../domain'
-import { Uuid } from '../shared'
+import { Uuid } from '@node-ts/ddd-types'
 import { unmanaged, injectable } from 'inversify'
 import { WriteModel } from './write-model'
 import { Connection, Repository } from 'typeorm'

@@ -1,7 +1,8 @@
-import { AggregateRoot, AggregateRootProperties, Uuid } from '@node-ts/ddd'
+import { AggregateRoot } from '@node-ts/ddd'
 import { Siren, SirenProperties } from './siren'
 import { RegisterAlarmSystem, AlarmSystemRegistered, AlarmSirenSilenced, SilenceAlarmSiren } from '../../../messages'
 import { SirenNotFound, SilencedInactiveSiren } from './error'
+import { Uuid, AggregateRootProperties } from '@node-ts/ddd-types'
 
 export interface AlarmSystemProperties extends AggregateRootProperties {
   readonly sirens: Siren[]

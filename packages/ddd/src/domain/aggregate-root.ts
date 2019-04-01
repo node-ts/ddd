@@ -1,9 +1,8 @@
 import { Entity } from './entity'
-import { AggregateRootProperties } from './aggregate-root-properties'
 import { Event } from '@node-ts/bus-messages'
 import { FunctionNotFound } from './error/function-not-found'
 import { pascal } from 'change-case'
-import { Uuid } from '../shared'
+import { Uuid, AggregateRootProperties } from '@node-ts/ddd-types'
 
 type IndexedWith<TTarget> = TTarget & { [key: string]: (event: Event) => void }
 

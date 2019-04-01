@@ -41,8 +41,8 @@
     "typescript": "^3.3.3333"
   },
   "peerDependencies": {
-    "inversify": "^5.0.1",
-    "@node-ts/logger-core": "^0.0.9"
+    "@node-ts/logger-core": "^0.0.9",
+    "inversify": "^5.0.1"
   },
   "jest": {
     "collectCoverageFrom": [
@@ -88,6 +88,7 @@
   },
   "dependencies": {
     "@node-ts/bus-messages": "^0.0.2",
+    "@node-ts/ddd-types": "^0.0.18",
     "change-case": "^3.1.0",
     "reflect-metadata": "^0.1.13",
     "typeorm": "^0.2.14"

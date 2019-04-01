@@ -1,5 +1,6 @@
 // tslint:disable:max-classes-per-file
-import { AggregateRoot, AggregateRootProperties } from '../domain'
+import { AggregateRoot } from '../domain'
+import { AggregateRootProperties } from '@node-ts/ddd-types'
 import { WriteRepository } from './write-repository'
 import { WriteModel } from './write-model'
 import { Mock, IMock, It, Times } from 'typemoq'

@@ -1,7 +1,6 @@
-import { EntityProperties } from '../domain'
 import { injectable, unmanaged } from 'inversify'
 import { ClassConstructor } from '@node-ts/logger-core'
-import { Uuid } from '../shared'
+import { Uuid, EntityProperties } from '@node-ts/ddd-types'
 import { Repository, Connection } from 'typeorm'
 import { EntityNotFound } from './error'
 

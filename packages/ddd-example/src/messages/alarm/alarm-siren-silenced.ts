@@ -1,5 +1,5 @@
 import { Event } from '@node-ts/bus-messages'
-import { Uuid } from '@node-ts/ddd'
+import { Uuid } from '@node-ts/ddd-types'
 
 export class AlarmSirenSilenced extends Event {
   static readonly NAME = 'node-ts/ddd-example/alarm/alarm-siren-silenced'

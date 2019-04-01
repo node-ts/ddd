@@ -1,5 +1,5 @@
 import { PersistenceError } from './persistence-error'
-import { Uuid } from '../../shared'
+import { Uuid } from '@node-ts/ddd-types'
 
 /**
  * Could not find the requested aggregate when retrieving from the databse

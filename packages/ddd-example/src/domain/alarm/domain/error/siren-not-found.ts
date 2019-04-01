@@ -1,4 +1,4 @@
-import { Uuid } from '@node-ts/ddd'
+import { Uuid } from '@node-ts/ddd-types'
 
 export class SirenNotFound extends Error {
   constructor (
