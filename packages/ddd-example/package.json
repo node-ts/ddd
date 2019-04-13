@@ -32,7 +32,7 @@
   ],
   "devDependencies": {
     "@node-ts/code-standards": "^0.0.10",
-    "@node-ts/logger-core": "^0.0.13",
+    "@node-ts/logger-core": "^0.0.15",
     "@types/jest": "^24.0.9",
     "inversify": "^5.0.1",
     "jest": "^24.1.0",
