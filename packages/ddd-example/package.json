@@ -43,7 +43,7 @@
     "typescript": "^3.3.3333"
   },
   "peerDependencies": {
-    "@node-ts/logger-core": "^0.0.9",
+    "@node-ts/logger-core": "^0.0.15",
     "inversify": "^5.0.1"
   },
   "dependencies": {
