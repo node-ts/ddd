@@ -6,6 +6,7 @@ import { Connection, Repository } from 'typeorm'
 import { ClassConstructor, assertUnreachable } from '../util'
 import { AggregateNotFound, DeletingNewAggregate } from './error'
 import { Logger } from '@node-ts/logger-core'
+import { Bus } from '@node-ts/bus-core'
 
 enum DmlOperation {
   Insert,
@@ -41,6 +42,7 @@ export abstract class WriteRepository <
     @unmanaged() private readonly aggregateRootConstructor: ClassConstructor<AggregateRootType>,
     @unmanaged() private readonly writeModelConstructor: ClassConstructor<WriteModelType>,
     @unmanaged() private readonly databaseConnection: Connection,
+    @unmanaged() private readonly bus: Bus,
     @unmanaged() protected readonly logger: Logger
   ) {
     this.repository = databaseConnection.getRepository(writeModelConstructor)
@@ -69,7 +71,17 @@ export abstract class WriteRepository <
     this.logger.debug('Saving aggregate root', { aggregateRoot })
     const writeModel = Object.assign(new this.writeModelConstructor(), aggregateRoot)
 
-    return this.doSave(aggregateRoot, writeModel)
+    await this.doSave(aggregateRoot, writeModel)
+    await this.publishChanges(aggregateRoot)
+  }
+
+  /**
+   * Publish and clear the Aggregate Root's changes
+   */
+  protected async publishChanges (root: AggregateRootType): Promise<void> {
+    const publishPromises = root.changes.map(event => this.bus.publish(event))
+    await Promise.all(publishPromises)
+    root.clearChanges()
   }
 
   protected async doSave (

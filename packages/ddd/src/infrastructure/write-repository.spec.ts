@@ -8,6 +8,7 @@ import { EntityManager, Connection, Repository } from 'typeorm'
 import { Logger } from '@node-ts/logger-core'
 import { Event } from '@node-ts/bus-messages'
 import { DeletingNewAggregate } from './error'
+import { Bus } from '@node-ts/bus-core'
 
 interface UserProperties extends AggregateRootProperties {
   name: string
@@ -15,7 +16,20 @@ interface UserProperties extends AggregateRootProperties {
 }
 
 class UserPurged extends Event {
-  $name = 'node-ts/ddd/user-purged'
+  static NAME = 'node-ts/ddd/user-purged'
+  $name = UserPurged.NAME
+  $version = 0
+}
+
+class UserRegistered extends Event {
+  static NAME = 'node-ts/ddd/user-registered'
+  $name = UserRegistered.NAME
+  $version = 0
+}
+
+class UserPasswordChanged extends Event {
+  static NAME = 'node-ts/ddd/user-password-changed'
+  $name = UserPasswordChanged.NAME
   $version = 0
 }
 
@@ -23,13 +37,28 @@ class User extends AggregateRoot implements UserProperties {
   name: string
   email: string
 
+  static register (id: string): User {
+    const user = new User(id)
+    const userRegistered = new UserRegistered()
+    user.when(userRegistered)
+    return user
+  }
+
   changePassword (): void {
-    // NOOP
+    this.when(new UserPasswordChanged())
   }
 
   purge (): void {
     const userPurged = new UserPurged()
     this.delete(userPurged)
+  }
+
+  protected whenUserRegistered (_: UserRegistered): void {
+    // ...
+  }
+
+  protected whenUserPasswordChanged (_: UserPasswordChanged): void {
+    // ...
   }
 }
 
@@ -45,6 +74,7 @@ describe('WriteRepository', () => {
   let sut: WriteRepository<User, UserWriteModel>
   let connection: IMock<Connection>
   let repository: IMock<Repository<UserWriteModel>>
+  let bus: IMock<Bus>
 
   beforeEach(() => {
     repository = Mock.ofType<Repository<UserWriteModel>>()
@@ -53,10 +83,13 @@ describe('WriteRepository', () => {
       .setup(c => c.getRepository(UserWriteModel))
       .returns(() => repository.object)
 
+    bus = Mock.ofType<Bus>()
+
     sut = new UserWriteRepository(
       User,
       UserWriteModel,
       connection.object,
+      bus.object,
       Mock.ofType<Logger>().object
     )
   })
@@ -99,24 +132,46 @@ describe('WriteRepository', () => {
         .setup(async c => c.transaction(It.isAny()))
         .callback(async unitOfWork => unitOfWork(entityManager.object))
 
-      user = new User('2')
+      user = User.register('2')
     })
 
     describe('and the aggregate is newly created', () => {
-      it('should invoke `save` on the orm', async () => {
+      beforeEach(async () => {
         await sut.save(user)
+      })
+
+      it('should invoke `save` on the orm', () => {
         entityManager.verify(
           async e => e.save(It.isAny()),
+          Times.once()
+        )
+      })
+
+      it('should publish changes to the domain object', () => {
+        bus.verify(
+          b => b.publish(It.isObjectWith<UserRegistered>({ $name: UserRegistered.NAME })),
           Times.once()
         )
       })
     })
 
     describe('and the aggregate is updated', () => {
-      it('should invoke `save` on the orm', async () => {
+      beforeEach(async () => {
+        user.clearChanges()
+        user.changePassword()
         await sut.save(user)
+      })
+
+      it('should invoke `save` on the orm', () => {
         entityManager.verify(
           async e => e.save(It.isAny()),
+          Times.once()
+        )
+      })
+
+      it('should publish changes to the domain object', () => {
+        bus.verify(
+          b => b.publish(It.isObjectWith<UserPasswordChanged>({ $name: UserPasswordChanged.NAME })),
           Times.once()
         )
       })

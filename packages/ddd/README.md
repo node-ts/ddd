@@ -13,7 +13,7 @@ If you have already decided to use DDD for your application, this package is par
 Install the `@node-ts/ddd` package and its dependencies:
 
 ```sh
-npm i @node-ts/ddd @node-ts/ddd-types @node-ts/logger-core @node-ts/bus-messages inversify --save
+npm i @node-ts/ddd @node-ts/ddd-types @node-ts/logger-core @node-ts/bus-core @node-ts/bus-messages inversify --save
 ```
 
 ## Domain layer

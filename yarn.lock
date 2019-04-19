@@ -1039,7 +1039,20 @@
     call-me-maybe "^1.0.1"
     glob-to-regexp "^0.3.0"
 
-"@node-ts/bus-messages@^0.1.0":
+"@node-ts/bus-core@^0.1.10":
+  version "0.1.10"
+  resolved "https://registry.yarnpkg.com/@node-ts/bus-core/-/bus-core-0.1.10.tgz#46b980dd45cb7370d9c0534296cdd2685189afb4"
+  integrity sha512-x5XNzlhdTnz+p9SxqtLmXPE0Dt8EuNf1otEp2ilDDKoP7053ZvpdNHq6lfR3CehZwr517X1LblVq38W6Tg2xoQ==
+  dependencies:
+    "@node-ts/bus-messages" "^0.1.2"
+    "@types/node" "^11.13.4"
+    autobind-decorator "^2.4.0"
+    class-transformer "^0.2.0"
+    inversify "^5.0.1"
+    reflect-metadata "^0.1.13"
+    tslib "^1.9.3"
+
+"@node-ts/bus-messages@^0.1.0", "@node-ts/bus-messages@^0.1.2":
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/@node-ts/bus-messages/-/bus-messages-0.1.2.tgz#6f9a21608c266a4d926b262e14ace84135e1ea66"
   integrity sha512-Gv5ZsbOidOcT3mGpFTbqWUW5eoyk7sz3EShm1aWRzW8CThHAiKSTENJptnx/tDBIxaR8hKrDruoHXKCJj2JUEg==
@@ -1180,6 +1193,11 @@
   version "11.13.4"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-11.13.4.tgz#f83ec3c3e05b174b7241fadeb6688267fe5b22ca"
   integrity sha512-+rabAZZ3Yn7tF/XPGHupKIL5EcAbrLxnTr/hgQICxbeuAfWtT0UZSfULE+ndusckBItcv4o6ZeOJplQikVcLvQ==
+
+"@types/node@^11.13.4":
+  version "11.13.5"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-11.13.5.tgz#266564afa8a6a09dc778dfacc703ed3f09c80516"
+  integrity sha512-/OMMBnjVtDuwX1tg2pkYVSqRIDSmNTnvVvmvP/2xiMAAWf4a5+JozrApCrO4WCAILmXVxfNoQ3E+0HJbNpFVGg==
 
 "@types/stack-utils@^1.0.1":
   version "1.0.1"
@@ -1455,6 +1473,11 @@ atob@^2.1.1:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/atob/-/atob-2.1.2.tgz#6d9517eb9e030d2436666651e86bd9f6f13533c9"
   integrity sha512-Wm6ukoaOGJi/73p/cl2GvLjTI5JM1k/O14isD73YML8StrH/7/lRFgmg8nICZgD3bZZvjwCGxtMOD3wWNAu8cg==
+
+autobind-decorator@^2.4.0:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/autobind-decorator/-/autobind-decorator-2.4.0.tgz#ea9e1c98708cf3b5b356f7cf9f10f265ff18239c"
+  integrity sha512-OGYhWUO72V6DafbF8PM8rm3EPbfuyMZcJhtm5/n26IDwO18pohE4eNazLoCGhPiXOCD0gEGmrbU3849QvM8bbw==
 
 aws-sign2@~0.7.0:
   version "0.7.0"
@@ -1901,6 +1924,11 @@ circular-json@^0.3.1:
   version "0.3.3"
   resolved "https://registry.yarnpkg.com/circular-json/-/circular-json-0.3.3.tgz#815c99ea84f6809529d2f45791bdf82711352d66"
   integrity sha512-UZK3NBx2Mca+b5LsG7bY183pHWt5Y1xts4P3Pz7ENTwGVnJOUWbRb3ocjvX7hx9tq/yTAdclXm9sZ38gNuem4A==
+
+class-transformer@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/class-transformer/-/class-transformer-0.2.0.tgz#e54b34112e8ef7f913ef938c81fed8ed949fc9c7"
+  integrity sha512-6N/5WkEmLZCKxyC2CAPYQIJt3pDZzDFag7AExpyWRm7CjaS/U62VDRU+Z2AUrQaNpnuiXRlli0so4PJUqGSVZQ==
 
 class-utils@^0.3.5:
   version "0.3.6"
