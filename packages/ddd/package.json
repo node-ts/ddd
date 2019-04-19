@@ -1,6 +1,6 @@
 {
   "name": "@node-ts/ddd",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "A domain driven design framework for enterprise grade applications",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
