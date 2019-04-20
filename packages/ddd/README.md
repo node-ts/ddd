@@ -8,6 +8,17 @@ If you are new to the concepts of DDD, it's highly recommended to do some backgr
 
 If you have already decided to use DDD for your application, this package is part of suite of purpose-built libraries that help you and your teams write large distributed node applications at enterprise scale and quality.
 
+
+## Motivation
+
+Too often new technology is promoted as a silver bullet to fundamental software design problems. We've been through SOA, REST, Microservices and now Serverless, with little regard to how best structure applications. The Node and Javascript community is one of constant innovation and these ideas are often put forward as crucial to even the simplest application.
+
+And it's these simple applications where the techniques are applied, and they'll often succeed because the application is so simple. But over time those applications grow larger, the system is harder to reason about, and more time gets spent profiling the code to work out what hte paths are. 
+
+Domain Driven Design (DDD) is an approach to this complexity. It is naturally decoupled, self documenting, simple to reason about and easy to talk about with domain experts - people who understand the problem domain you're writing software for. 
+
+It doesn't care if you want to run it as a monolith, or split into hundreds of microservices (in fact having a codebase written using DDD principles are simple to move from one to the other). It's main focus is to ensure that the the complexity of the software simply mimics the complexity of the business domains and no more. 
+
 ## Installation
 
 Install the `@node-ts/ddd` package and its dependencies:
