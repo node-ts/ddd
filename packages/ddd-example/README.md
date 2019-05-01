@@ -13,6 +13,7 @@ To run this application:
 ```bash
 yarn
 yarn bootstrap
+yarn build
 cd packages/ddd-example
 yarn dev
 ```
