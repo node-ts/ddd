@@ -8,19 +8,23 @@ By isolating domain code away from all other concerns of the system like infrast
 
 If you are new to the concepts of DDD, it's highly recommended to do some background reading to grasp the motivations for this approach and to decide if it suits your application.
 
-If you have already decided to use DDD for your application, this package is part of suite of purpose-built libraries that help you and your teams write large distributed node applications at enterprise scale and quality.
+If you have already decided to use DDD for your application, this package is part of suite of purpose-built libraries that help you and your teams write large distributed node applications that are maintainable and easy to change.
 
 ## Installation
 
 Install the `@node-ts/ddd` package and its dependencies:
 
 ```sh
-npm i @node-ts/ddd @node-ts/logger-core @node-ts/bus-messages inversify --save
+npm i @node-ts/ddd @node-ts/logger-core @node-ts/bus-core @node-ts/bus-messages inversify --save
 ```
+
+## Layers
+
+This library encourages layering code using the onion architecture approach. The main two layers that this libray provides helpers for are the domain and application layers outlined below. 
 
 ## Domain layer
 
-The domain layer has no technical concerns like infrastructure, authentication, data access etc. The goal of the domain layer is to have a place in your application where code can be writen that models your business domains and rules in a way where those business complexities are kept separate from the rest of your application.
+The domain layer sits at the centre of the system. It contains domain objects and domain services. This layer has no technical concerns like infrastructure, authentication, data access etc. The goal of the domain layer is to have a place in your application where code can be writen that models your business domains and rules in a way where those business complexities are kept separate from the rest of your application.
 
 As a result, much of the code that gets written in this layer can be read by non-technical staff meaning that greater collaboration with the domain experts and validation of expected behaviours can be performed. Code here is easily unit testable and isolated from the rest of the application. 
 
@@ -32,7 +36,7 @@ A simple example is a user of a website. In this example an "account" domain is 
 * `changePassword()`
 * `disable()` their account
 
-We can model that these actions have occured using bus `Events` (see [Bus Messages](https://www.npmjs.com/package/@node-ts/bus-messages) for more details). Here are the events for those actions:
+We can model that these actions have occured using bus `Events` (see [Bus Messages](https://node-ts.github.io/bus/packages/bus-messages/#event) for more details). Here are the events for those actions:
 
 ```typescript
 // user-registered.ts
@@ -107,7 +111,7 @@ export class UserDisabled extends Event {
 
 These events above are broadcasted to the rest of your system, normally with a message bus, each time one of the actions are performed on the aggregate root. 
 
-The following is an example implementation of the `User` class:
+The following is an example implementation of the `User` domain object:
 
 ```typescript
 // user.ts
@@ -179,28 +183,21 @@ export class User extends AggregateRoot implements UserProperties {
 }
 ```
 
-This approach to modeling the business domain is well documented in DDD spheres. It's clear what actions a user can perform, what the business rules are those actions, and what data updates as a result. Furthermore because all changes to the data is represented in events that are broadcasted, these can be collected and stored to form a full audit log and history of all changes to your system.
+This approach to modeling the business domain is well documented. It's clear what actions a user can perform, what the business rules are those actions, and what data updates as a result.
 
-## Infrastructure layer
+Each time an action method is called on a domain objecft, an event is prepared and applied to the `when()` protected method. This method does a number of things:
 
-```typescript
-// user-write-repository.ts
-import { injectable, inject } from 'inversify'
-import { Connection } from 'typeorm'
-import { LOGGER_SYMBOLS, Logger } from '@node-ts/logger-core'
+* It adds the event into the list of new changes made to the aggregate
+* It increments the verison of the aggregate as data has now changed
+* It invokes the method named `when<EventName>` on the aggregate (eg: `whenUserRegistered`)
 
-@injectable()
-export class UserWriteRepository extends WriteRepository<User, UserWriteModel> {
-  constructor (
-    @inject(SHARED_SYMBOLS.DatabaseConnection) databaseConnection: Connection,
-    @inject(LOGGER_SYMBOLS.Logger) logger: Logger
-  ) {
-    super(User, UserWriteModel, databaseConnection, logger)
-  }
-}
-```
+At this point it's important to note that the aggregate has not been persisted nor the event published to the bus. This will be the responsibility of the application server that initially invoked the domain action.
 
-## Application layer
+### Application layer
+
+The application layer sits around the domain layer. It provides services that act as a gateway to performing actions against the domain. Broadly speaking, these services typically offer one method per command, and can retrieve domain objects from persistence, query other necessary data inputs, gather dependencies to inject and persist data back to the database.
+
+The following `UserService` provides operations that modify the `User` domain object. Note that once an operation has been performed on the domain object, it is persisted via its write repository. This operation will store the updated object in the database as well as publishing any events to the bus.
 
 ```typescript
 // user-service.ts
@@ -233,6 +230,25 @@ export class UserService {
     const user = await this.userWriteRepository.getById(id)
     await user.disable()
     await this.userWriteRepository.save(user)
+  }
+}
+```
+
+The `UserWriteRepository` injected into the above service comes from the following class definition. The in-built `WriteRepository<>` is a wrapper around TypeORM that provides the ability to write to different types of databases as well as sending domain object change events to the bus.
+
+```typescript
+// user-write-repository.ts
+import { injectable, inject } from 'inversify'
+import { Connection } from 'typeorm'
+import { LOGGER_SYMBOLS, Logger } from '@node-ts/logger-core'
+
+@injectable()
+export class UserWriteRepository extends WriteRepository<User, UserWriteModel> {
+  constructor (
+    @inject(SHARED_SYMBOLS.DatabaseConnection) databaseConnection: Connection,
+    @inject(LOGGER_SYMBOLS.Logger) logger: Logger
+  ) {
+    super(User, UserWriteModel, databaseConnection, logger)
   }
 }
 ```
