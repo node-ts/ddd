@@ -32,7 +32,7 @@
     "ES"
   ],
   "devDependencies": {
-    "@node-ts/bus-core": "^0.1.10",
+    "@node-ts/bus-core": "^0.2.0",
     "@node-ts/code-standards": "^0.0.10",
     "@node-ts/logger-core": "^0.0.13",
     "@types/change-case": "^2.3.1",
