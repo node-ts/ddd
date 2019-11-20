@@ -36,7 +36,7 @@
     "@types/jest": "^24.0.9",
     "inversify": "^5.0.1",
     "jest": "^24.1.0",
-    "nodemon": "^1.18.10",
+    "nodemon": "^2.0.0",
     "ts-jest": "^24.0.0",
     "tslint": "^5.13.0",
     "typemoq": "^2.1.0",
