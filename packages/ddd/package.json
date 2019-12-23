@@ -36,7 +36,7 @@
     "@node-ts/code-standards": "^0.0.10",
     "@node-ts/logger-core": "^0.0.13",
     "@types/change-case": "^2.3.1",
-    "@types/node": "^12.0.0",
+    "@types/node": "^13.1.0",
     "inversify": "^5.0.1",
     "tslint": "^5.13.0",
     "typemoq": "^2.1.0",
