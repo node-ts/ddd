@@ -37,7 +37,7 @@
     "typescript": "^3.3.3333"
   },
   "dependencies": {
-    "@node-ts/bus-messages": "^0.1.0",
+    "@node-ts/bus-messages": "^0.2.0",
     "reflect-metadata": "^0.1.13"
   }
 }
