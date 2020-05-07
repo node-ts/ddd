@@ -48,7 +48,7 @@
     "inversify": "^5.0.1"
   },
   "dependencies": {
-    "@node-ts/bus-messages": "^0.1.0",
+    "@node-ts/bus-messages": "^0.2.2",
     "@node-ts/ddd-types": "^0.1.3",
     "change-case": "^3.1.0",
     "reflect-metadata": "^0.1.13",
