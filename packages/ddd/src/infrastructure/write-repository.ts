@@ -1,7 +1,7 @@
 import { AggregateRoot } from '../domain'
 import { unmanaged, injectable } from 'inversify'
 import { WriteModel } from './write-model'
-import { DataSource, Repository} from 'typeorm'
+import { DataSource, Repository } from 'typeorm'
 import { ClassConstructor, assertUnreachable } from '../util'
 import { AggregateNotFound, DeletingNewAggregate } from './error'
 import { Logger } from '@node-ts/logger-core'
