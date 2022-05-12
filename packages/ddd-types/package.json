@@ -1,6 +1,6 @@
 {
   "name": "@node-ts/ddd-types",
-  "version": "0.1.4",
+  "version": "0.2.0",
   "description": "A set of types that define core DDD objects",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
