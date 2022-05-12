@@ -15,13 +15,13 @@ jobs:
           command: pnpm i --frozen-lockfile
       - run:
           name: Lint
-          command: pnpm run lint
+          command: pnpm run lint --recursive
       - run:
           name: Build
-          command: pnpm run build
+          command: pnpm run build --recursive
       - run:
           name: Test
-          command: pnpm run test
+          command: pnpm run test --recursive
 
 
   deploy:
@@ -34,13 +34,13 @@ jobs:
           command: pnpm i --frozen-lockfile
       - run:
           name: Lint
-          command: pnpm run lint
+          command: pnpm run lint --recursive
       - run:
           name: Build
-          command: pnpm run build
+          command: pnpm run build --recursive
       - run:
           name: Test
-          command: pnpm run test
+          command: pnpm run test --recursive
       - run:
           name: Authenticate with registry
           command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/repo/.npmrc

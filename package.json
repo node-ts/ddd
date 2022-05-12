@@ -4,9 +4,6 @@
   "description": "",
   "private": true,
   "scripts": {
-    "build": "pnpm run build --recursive",
-    "lint": "pnpm run lint --recursive",
-    "lint:fix": "pnpm run lint:fix --recursive",
     "test": "pnpm run test:unit && pnpm run test:integration --passWithNoTests",
     "test:unit": "dotenv -- jest \"packages\\/.*[\\/]?(src\\/.+\\.|/)spec\\.ts$\"",
     "test:unit:coverage": "pnpm run test:unit --coverage",
