@@ -1,7 +1,6 @@
 version: 2
 
 defaults: &defaults
-  working_directory: ~/repo
   docker:
     - image: cimg/node:18.1.0
 
