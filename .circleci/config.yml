@@ -3,7 +3,7 @@ version: 2
 defaults: &defaults
   working_directory: ~/repo
   docker:
-    - image: heyoxe/circleci-node-pnpm:current
+    - image: octoblu/pnpm:latest
 
 jobs:
   build:
@@ -15,7 +15,7 @@ jobs:
           command: pnpm i --frozen-lockfile
       - run:
           name: Lint
-          command: pnpm i --frozen-lockfile && pnpm run lint
+          command: pnpm run lint
       - run:
           name: Build
           command: pnpm run build
