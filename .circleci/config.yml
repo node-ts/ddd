@@ -14,10 +14,10 @@ jobs:
           at: ~/repo
       - run:
           name: Install dependencies
-          command: pnpm i
+          command: pnpm i --frozen-lockfile
       - run:
           name: Lint
-          command: pnpm run build
+          command: pnpm run lint
       - run:
           name: Build
           command: pnpm run build
@@ -34,7 +34,7 @@ jobs:
           at: ~/repo
       - run:
           name: Install dependencies
-          command: pnpm i
+          command: pnpm i --frozen-lockfile
       - run:
           name: Lint
           command: pnpm run lint
