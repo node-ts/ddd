@@ -3,13 +3,14 @@ version: 2
 defaults: &defaults
   working_directory: ~/repo
   docker:
-    - image: octoblu/pnpm:latest
+    - image: cimg/node:latest
 
 jobs:
   build:
     <<: *defaults
     steps:
       - checkout
+      - run: npm i -g pnpm
       - run:
           name: Install dependencies
           command: pnpm i --frozen-lockfile
@@ -28,6 +29,7 @@ jobs:
     <<: *defaults
     steps:
       - checkout
+      - run: npm i -g pnpm
       - run:
           name: Install dependencies
           command: pnpm i --frozen-lockfile
