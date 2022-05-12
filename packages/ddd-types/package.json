@@ -10,14 +10,14 @@
   "private": false,
   "scripts": {
     "build": "tsc --project tsconfig.json --stripInternal --outDir dist/ --declaration",
-    "lint": "yarn lint:ts",
+    "lint": "pnpm lint:ts",
     "lint:ts": "tslint --project tsconfig.json 'src/**/*.ts'",
-    "lint:fix": "yarn lint --fix",
+    "lint:fix": "pnpm lint --fix",
     "publish:packages": "npm publish --access=public",
     "test": "jest \"(src\\/.+\\.|/)spec\\.ts$\"",
-    "test:coverage": "yarn run test --coverage",
-    "test:ci": "yarn run test -w 8",
-    "test:watch": "yarn run test --watch"
+    "test:coverage": "pnpm run test --coverage",
+    "test:ci": "pnpm run test -w 8",
+    "test:watch": "pnpm run test --watch"
   },
   "publishConfig": {
     "access": "public"

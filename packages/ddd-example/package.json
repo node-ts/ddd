@@ -10,16 +10,16 @@
   "private": true,
   "scripts": {
     "build": "tsc --project tsconfig.json --stripInternal --outDir dist/ --declaration",
-    "dev": "nodemon --watch ./src -e ts --exec \"yarn dev:run\"",
-    "dev:run": "yarn run build && node dist/index.js",
-    "lint": "yarn lint:ts",
+    "dev": "nodemon --watch ./src -e ts --exec \"pnpm dev:run\"",
+    "dev:run": "pnpm run build && node dist/index.js",
+    "lint": "pnpm lint:ts",
     "lint:ts": "tslint --project tsconfig.json 'src/**/*.ts'",
-    "lint:fix": "yarn lint --fix",
+    "lint:fix": "pnpm lint --fix",
     "publish:packages": "npm publish --access=public",
     "test": "jest \"(src\\/.+\\.|/)spec\\.ts$\"",
-    "test:coverage": "yarn run test --coverage",
-    "test:ci": "yarn run test -w 8",
-    "test:watch": "yarn run test --watch"
+    "test:coverage": "pnpm run test --coverage",
+    "test:ci": "pnpm run test -w 8",
+    "test:watch": "pnpm run test --watch"
   },
   "keywords": [
     "typescript",

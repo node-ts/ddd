@@ -3,7 +3,7 @@ version: 2
 defaults: &defaults
   working_directory: ~/repo
   docker:
-    - image: circleci/node:erbium
+    - image: heyoxe/circleci-node-pnpm:current
 
 jobs:
   build:
@@ -14,19 +14,16 @@ jobs:
           at: ~/repo
       - run:
           name: Install dependencies
-          command: yarn
-      - run:
-          name: Bootstrap monorepo
-          command: yarn run bootstrap
+          command: pnpm i
       - run:
           name: Lint
-          command: yarn run lint
+          command: pnpm run lint
       - run:
           name: Build
-          command: yarn run build
+          command: pnpm run build
       - run:
           name: Test
-          command: yarn run test
+          command: pnpm run test
 
 
   deploy:
@@ -37,25 +34,22 @@ jobs:
           at: ~/repo
       - run:
           name: Install dependencies
-          command: yarn
-      - run:
-          name: Bootstrap monorepo
-          command: yarn run bootstrap
+          command: pnpm i
       - run:
           name: Lint
-          command: yarn run lint
+          command: pnpm run lint
       - run:
           name: Build
-          command: yarn run build
+          command: pnpm run build
       - run:
           name: Test
-          command: yarn run test
+          command: pnpm run test
       - run:
           name: Authenticate with registry
           command: echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/repo/.npmrc
       - run:
           name: Publish
-          command: npx lerna publish from-package --yes
+          command: pnpm publish
 
 workflows:
   version: 2

@@ -11,11 +11,11 @@ The monitoring company can then dispatch security personel to go investigate and
 To run this application:
 
 ```bash
-yarn
-yarn bootstrap
-yarn build
+pnpm
+pnpm bootstrap
+pnpm build
 cd packages/ddd-example
-yarn dev
+pnpm dev
 ```
 
 ## Application structure
