@@ -15,7 +15,7 @@ jobs:
           command: pnpm i --frozen-lockfile
       - run:
           name: Lint
-          command: pnpm run lint
+          command: ls -la && ls -la node_modules && pnpm run lint
       - run:
           name: Build
           command: pnpm run build
