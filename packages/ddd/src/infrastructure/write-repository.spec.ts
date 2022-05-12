@@ -105,7 +105,7 @@ describe('WriteRepository', () => {
       writeModel.email = 'email'
 
       repository
-        .setup(async r => r.findOne(writeModel.id))
+        .setup(async r => r.findOneBy({ id: writeModel.id }))
         .returns(async () => writeModel)
 
       user = await sut.getById(writeModel.id)

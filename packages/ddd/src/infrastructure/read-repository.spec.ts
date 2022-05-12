@@ -2,7 +2,7 @@
 
 import { Model } from './model'
 import { ReadRepository } from './read-repository'
-import { Connection, Repository } from 'typeorm'
+import { DataSource, Repository } from 'typeorm'
 import { IMock, Mock } from 'typemoq'
 import { EntityNotFound } from './error'
 
@@ -10,7 +10,7 @@ class UserModel extends Model {
 }
 
 class UserReadRepository extends ReadRepository<UserModel> {
-  constructor (connection: Connection) {
+  constructor (connection: DataSource) {
     super(
       connection,
       UserModel
@@ -20,11 +20,11 @@ class UserReadRepository extends ReadRepository<UserModel> {
 
 describe('ReadRepository', () => {
   let sut: ReadRepository<UserModel>
-  let connection: IMock<Connection>
+  let connection: IMock<DataSource>
   let repository: IMock<Repository<UserModel>>
 
   beforeEach(() => {
-    connection = Mock.ofType<Connection>()
+    connection = Mock.ofType<DataSource>()
     repository = Mock.ofType<Repository<UserModel>>()
 
     connection
@@ -42,7 +42,7 @@ describe('ReadRepository', () => {
       user.id = 'abc'
 
       repository
-        .setup(async r => r.findOne(user.id))
+        .setup(async r => r.findOne({ where: { id: user.id } }))
         .returns(async () => user)
     })
 
