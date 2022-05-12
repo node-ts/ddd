@@ -9,7 +9,7 @@ jobs:
     <<: *defaults
     steps:
       - checkout
-      - run: npm i -g pnpm
+      - run: npm i -g pnpm && pnpm -v
       - run:
           name: Install dependencies
           command: pnpm i --frozen-lockfile
