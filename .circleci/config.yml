@@ -17,7 +17,7 @@ jobs:
           command: pnpm i
       - run:
           name: Lint
-          command: pnpm run lint
+          command: pnpm run build
       - run:
           name: Build
           command: pnpm run build
