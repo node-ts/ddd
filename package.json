@@ -4,41 +4,27 @@
   "description": "",
   "private": true,
   "scripts": {
-    "bootstrap": "lerna bootstrap",
-    "build": "lerna run build",
-    "lint": "lerna run lint",
-    "lint:fix": "lerna run lint:fix",
-    "test": "yarn run test:unit && yarn run test:integration --passWithNoTests",
+    "test": "pnpm run test:unit && pnpm run test:integration --passWithNoTests",
     "test:unit": "dotenv -- jest \"packages\\/.*[\\/]?(src\\/.+\\.|/)spec\\.ts$\"",
-    "test:unit:coverage": "yarn run test:unit --coverage",
-    "test:unit:ci": "yarn run test:unit -w 8",
-    "test:unit:watch": "yarn run test:unit --watch",
-    "test:integration": "yarn run test:integration:run",
-    "test:integration:watch": "yarn run test:integration:run --watch",
+    "test:unit:coverage": "pnpm run test:unit --coverage",
+    "test:unit:ci": "pnpm run test:unit -w 8",
+    "test:unit:watch": "pnpm run test:unit --watch",
+    "test:integration": "pnpm run test:integration:run",
+    "test:integration:watch": "pnpm run test:integration:run --watch",
     "test:integration:run": "dotenv -- jest \"$TEST_SCOPE[\\/]?(src\\/.+\\.|/)integration\\.ts$\"",
-    "test:integration:run:ci": "yarn run test:integration:run -w 8"
+    "test:integration:run:ci": "pnpm run test:integration:run -w 8"
   },
   "author": "Andrew den Hertog <andrew.denhertog@gmail.com>",
   "license": "MIT",
-  "dependencies": {},
   "devDependencies": {
     "@node-ts/code-standards": "^0.0.10",
-    "@types/jest": "^24.0.11",
-    "dotenv-cli": "^3.0.0",
-    "jest": "^24.5.0",
-    "lerna": "^3.10.5",
+    "@types/jest": "^27.5.1",
+    "dotenv-cli": "^5.1.0",
+    "jest": "^28.1.0",
     "reflect-metadata": "^0.1.13",
-    "ts-jest": "^24.0.0",
-    "tslib": "^1.9.3",
-    "typescript": "^3.3.3333"
-  },
-  "workspaces": {
-    "nohoist": [
-      "**"
-    ],
-    "packages": [
-      "packages/*"
-    ]
+    "ts-jest": "^28.0.2",
+    "tslib": "^2.4.0",
+    "typescript": "^4.6.4"
   },
   "jest": {
     "collectCoverageFrom": [

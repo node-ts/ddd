@@ -1,7 +1,7 @@
 import { injectable, unmanaged } from 'inversify'
 import { ClassConstructor } from '@node-ts/logger-core'
 import { Uuid, EntityProperties } from '@node-ts/ddd-types'
-import { Repository, Connection } from 'typeorm'
+import { Repository, DataSource } from 'typeorm'
 import { EntityNotFound } from './error'
 
 /**
@@ -26,9 +26,10 @@ export class ReadRepository<EntityType extends EntityProperties> {
   protected readonly repository: Repository<EntityType>
 
   constructor (
-    databaseConnection: Connection,
+    databaseConnection: DataSource,
     @unmanaged() private readonly readModelType: ClassConstructor<EntityType>
   ) {
+
     this.repository = databaseConnection.getRepository(this.readModelType)
   }
 
@@ -36,8 +37,9 @@ export class ReadRepository<EntityType extends EntityProperties> {
    * Returns the read model based on its id
    * @throws {EntityNotFound}
    */
-  async getById (id: Uuid): Promise<EntityType> {
-    const readModel = await this.repository.findOne(id)
+  async getById (id: EntityType['id']): Promise<EntityType> {
+    // tslint:disable-next-line:no-any Can't wrangle correct type
+    const readModel = await this.repository.findOneBy({ id: id as any })
     if (!readModel) {
       throw new EntityNotFound(this.readModelType.name, id)
     } else {
