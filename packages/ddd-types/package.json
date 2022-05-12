@@ -33,11 +33,11 @@
   ],
   "devDependencies": {
     "@node-ts/code-standards": "^0.0.10",
-    "tslint": "^5.13.0",
-    "typescript": "^3.3.3333"
+    "tslint": "^6.1.3",
+    "typescript": "^4.6.4"
   },
   "dependencies": {
-    "@node-ts/bus-messages": "^0.2.2",
+    "@node-ts/bus-messages": "^1.0.4",
     "reflect-metadata": "^0.1.13"
   }
 }

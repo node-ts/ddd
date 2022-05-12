@@ -1,8 +1,7 @@
 import { AggregateRoot } from '../domain'
-import { Uuid } from '@node-ts/ddd-types'
 import { unmanaged, injectable } from 'inversify'
 import { WriteModel } from './write-model'
-import { Connection, Repository } from 'typeorm'
+import { DataSource, Repository} from 'typeorm'
 import { ClassConstructor, assertUnreachable } from '../util'
 import { AggregateNotFound, DeletingNewAggregate } from './error'
 import { Logger } from '@node-ts/logger-core'
@@ -41,7 +40,7 @@ export abstract class WriteRepository <
   constructor (
     @unmanaged() private readonly aggregateRootConstructor: ClassConstructor<AggregateRootType>,
     @unmanaged() private readonly writeModelConstructor: ClassConstructor<WriteModelType>,
-    @unmanaged() private readonly databaseConnection: Connection,
+    @unmanaged() private readonly databaseConnection: DataSource,
     @unmanaged() private readonly bus: Bus,
     @unmanaged() protected readonly logger: Logger
   ) {
@@ -53,9 +52,10 @@ export abstract class WriteRepository <
    *
    * @throws {AggregateNotFound} if no aggregate root with @param id could be found
    */
-  async getById (id: Uuid): Promise<AggregateRootType> {
-    const writeModel = await this.repository.findOne(id)
-    if (writeModel === undefined) {
+  async getById (id: AggregateRootType['id']): Promise<AggregateRootType> {
+    // tslint:disable-next-line:no-any Can't wrangle correct type
+    const writeModel = await this.repository.findOneBy({ id: id as any })
+    if (!writeModel) {
       throw new AggregateNotFound(this.aggregateRootConstructor.name, id)
     }
     return this.toAggregateRoot(writeModel)

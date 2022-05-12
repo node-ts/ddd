@@ -1,7 +1,7 @@
 import { Entity } from './entity'
 import { Event } from '@node-ts/bus-messages'
 import { FunctionNotFound } from './error/function-not-found'
-import { pascal } from 'change-case'
+import { pascalCase } from 'change-case'
 import { Uuid, AggregateRootProperties } from '@node-ts/ddd-types'
 
 type IndexedWith<TTarget> = TTarget & { [key: string]: (event: Event) => void }
@@ -90,6 +90,6 @@ function resolveLocalFunctionName (event: Event): string {
   const namespace = event.$name
   const nameParts = namespace.split('/')
   const name = nameParts[nameParts.length - 1]
-  const pascalName = pascal(name)
+  const pascalName = pascalCase(name)
   return `when${pascalName}`
 }
