@@ -38,6 +38,6 @@
   },
   "dependencies": {
     "@node-ts/bus-messages": "^1.0.4",
-    "reflect-metadata": "^0.1.13"
+    "reflect-metadata": "^0.2.0"
   }
 }
