@@ -5,7 +5,7 @@ import { Uuid } from '@node-ts/ddd-types'
  * Could not find the requested aggregate when retrieving from the databse
  */
 export class AggregateNotFound extends PersistenceError {
-  constructor (
+  constructor(
     readonly aggregateName: string,
     readonly id: Uuid
   ) {

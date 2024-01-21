@@ -6,12 +6,11 @@ export class AlarmSirenSilenced extends Event {
   readonly $name = AlarmSirenSilenced.NAME
   readonly $version = 0
 
-  constructor (
+  constructor(
     readonly alarmSystemId: Uuid,
     readonly sirenName: string,
     readonly isActivated: boolean
   ) {
     super()
   }
-
 }

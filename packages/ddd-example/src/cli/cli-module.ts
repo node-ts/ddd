@@ -2,8 +2,7 @@ import { ContainerModule } from 'inversify'
 import { Cli } from './cli'
 
 export class CliModule extends ContainerModule {
-
-  constructor () {
+  constructor() {
     super(bind => {
       bind(Cli).toSelf()
     })

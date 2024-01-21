@@ -11,8 +11,8 @@ type IndexedWith<TTarget> = TTarget & { [key: string]: (event: Event) => void }
  */
 export abstract class AggregateRoot<TId = Uuid>
   extends Entity<TId>
-  implements AggregateRootProperties<TId> {
-
+  implements AggregateRootProperties<TId>
+{
   /**
    * The current version of the aggreage after all updates have been applied. Each update of
    * the object, aka each time an event is applied, increments this value by one.
@@ -31,7 +31,7 @@ export abstract class AggregateRoot<TId = Uuid>
 
   private newEvents: Event[]
 
-  constructor (id: TId) {
+  constructor(id: TId) {
     super(id)
     this.version = 0
     this.fetchVersion = 0
@@ -48,21 +48,18 @@ export abstract class AggregateRoot<TId = Uuid>
    * It's at this point that this method should be called, ie: after the static creation method but
    * before the method that's under test.
    */
-  clearChanges (): void {
+  clearChanges(): void {
     this.newEvents = []
   }
 
-  protected when (event: Event): void {
+  protected when(event: Event): void {
     const localFunctionName = resolveLocalFunctionName(event)
 
     const indexedThis = this as IndexedWith<this>
     const localFunction = indexedThis[localFunctionName] as {}
 
     if (typeof localFunction !== 'function') {
-      throw new FunctionNotFound(
-        event,
-        localFunctionName
-      )
+      throw new FunctionNotFound(event, localFunctionName)
     }
 
     localFunction.call(this, event)
@@ -70,23 +67,22 @@ export abstract class AggregateRoot<TId = Uuid>
     this.addEvent(event)
   }
 
-  get changes (): Event[] {
+  get changes(): Event[] {
     return this.newEvents
   }
 
-  protected delete<EventType extends Event> (deletionEvent: EventType): void {
+  protected delete<EventType extends Event>(deletionEvent: EventType): void {
     this.addEvent(deletionEvent)
     this.isDeleted = true
   }
 
-  private addEvent (event: Event): void {
+  private addEvent(event: Event): void {
     this.newEvents.push(event)
     this.version++
   }
-
 }
 
-function resolveLocalFunctionName (event: Event): string {
+function resolveLocalFunctionName(event: Event): string {
   const namespace = event.$name
   const nameParts = namespace.split('/')
   const name = nameParts[nameParts.length - 1]

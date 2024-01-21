@@ -1,7 +1,7 @@
 import { Event } from '@node-ts/bus-messages'
 
 export class FunctionNotFound extends Error {
-  constructor (
+  constructor(
     readonly event: Event,
     readonly expectedFunctionName: string
   ) {

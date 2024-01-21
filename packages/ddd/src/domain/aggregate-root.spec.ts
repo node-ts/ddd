@@ -18,12 +18,12 @@ class AggregateDeleted extends Event {
 class TestAggregateRoot extends AggregateRoot {
   example = 1
 
-  purge (): void {
+  purge(): void {
     const aggregateDeleted = new AggregateDeleted()
     this.delete(aggregateDeleted)
   }
 
-  protected whenSomethingHappens (event: SomethingHappens): void {
+  protected whenSomethingHappens(event: SomethingHappens): void {
     this.example = event.example
   }
 }
@@ -78,5 +78,4 @@ describe('AggregateRoot', () => {
       expect(sut.changes).toHaveLength(0)
     })
   })
-
 })

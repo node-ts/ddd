@@ -6,10 +6,7 @@ export class AlarmSystemRegistered extends Event {
   readonly $name = AlarmSystemRegistered.NAME
   readonly $version = 0
 
-  constructor (
-    readonly id: Uuid
-  ) {
+  constructor(readonly id: Uuid) {
     super()
   }
-
 }

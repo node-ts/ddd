@@ -5,6 +5,9 @@
   "private": true,
   "scripts": {
     "build": "pnpm run build --recursive",
+    "format": "prettier --ignore-path .gitignore --write --config .prettierrc.js . \"!**/*.(yml|yaml|mdx)\"",
+    "format:check": "prettier --ignore-path .gitignore --check --config .prettierrc.js . \"!**/*.(yml|yaml|mdx)\" \"!**/services/client-app/**/*\" \"!**/services/system-integration/**/*.(html|json|js|css)\"",
+    "format:precommit": "lint-staged",
     "lint": "pnpm run lint --recursive",
     "lint:fix": "pnpm run lint:fix --recursive",
     "test": "pnpm run test:unit && pnpm run test:integration --passWithNoTests",
@@ -23,7 +26,18 @@
     "@node-ts/code-standards": "^0.0.10",
     "@types/jest": "^27.5.1",
     "dotenv-cli": "^5.1.0",
+    "eslint": "^8.56.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-jsdoc": "^48.0.2",
+    "eslint-plugin-monorepo-cop": "^1.0.2",
+    "eslint-plugin-no-null": "^1.0.2",
+    "eslint-plugin-prefer-arrow": "^1.2.3",
+    "eslint-plugin-unused-imports": "^3.0.0",
+    "husky": "^8.0.3",
     "jest": "^28.1.0",
+    "lint-staged": "^15.2.0",
+    "prettier": "^3.2.4",
+    "prettier-plugin-organize-imports": "^3.2.4",
     "reflect-metadata": "^0.1.13",
     "ts-jest": "^28.0.2",
     "tslib": "^2.4.0",
@@ -66,6 +80,9 @@
         "babelConfig": true
       }
     }
+  },
+  "lint-staged": {
+    "*.(ts|tsx|js|md|css|html|json)": "prettier --ignore-path .gitignore --write --config .prettierrc.js"
   },
   "keywords": [
     "typescript",

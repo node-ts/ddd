@@ -37,27 +37,27 @@ class User extends AggregateRoot implements UserProperties {
   name: string
   email: string
 
-  static register (id: string): User {
+  static register(id: string): User {
     const user = new User(id)
     const userRegistered = new UserRegistered()
     user.when(userRegistered)
     return user
   }
 
-  changePassword (): void {
+  changePassword(): void {
     this.when(new UserPasswordChanged())
   }
 
-  purge (): void {
+  purge(): void {
     const userPurged = new UserPurged()
     this.delete(userPurged)
   }
 
-  protected whenUserRegistered (_: UserRegistered): void {
+  protected whenUserRegistered(_: UserRegistered): void {
     // ...
   }
 
-  protected whenUserPasswordChanged (_: UserPasswordChanged): void {
+  protected whenUserPasswordChanged(_: UserPasswordChanged): void {
     // ...
   }
 }
@@ -67,8 +67,7 @@ class UserWriteModel extends WriteModel implements UserProperties {
   email: string
 }
 
-class UserWriteRepository extends WriteRepository<User, UserWriteModel> {
-}
+class UserWriteRepository extends WriteRepository<User, UserWriteModel> {}
 
 describe('WriteRepository', () => {
   let sut: WriteRepository<User, UserWriteModel>
@@ -141,15 +140,15 @@ describe('WriteRepository', () => {
       })
 
       it('should invoke `save` on the orm', () => {
-        entityManager.verify(
-          async e => e.save(It.isAny()),
-          Times.once()
-        )
+        entityManager.verify(async e => e.save(It.isAny()), Times.once())
       })
 
       it('should publish changes to the domain object', () => {
         bus.verify(
-          b => b.publish(It.isObjectWith<UserRegistered>({ $name: UserRegistered.NAME })),
+          b =>
+            b.publish(
+              It.isObjectWith<UserRegistered>({ $name: UserRegistered.NAME })
+            ),
           Times.once()
         )
       })
@@ -163,15 +162,17 @@ describe('WriteRepository', () => {
       })
 
       it('should invoke `save` on the orm', () => {
-        entityManager.verify(
-          async e => e.save(It.isAny()),
-          Times.once()
-        )
+        entityManager.verify(async e => e.save(It.isAny()), Times.once())
       })
 
       it('should publish changes to the domain object', () => {
         bus.verify(
-          b => b.publish(It.isObjectWith<UserPasswordChanged>({ $name: UserPasswordChanged.NAME })),
+          b =>
+            b.publish(
+              It.isObjectWith<UserPasswordChanged>({
+                $name: UserPasswordChanged.NAME
+              })
+            ),
           Times.once()
         )
       })
@@ -191,7 +192,9 @@ describe('WriteRepository', () => {
       it('should throw a DeletingNewAggregate error', async () => {
         const newUser = new User('a')
         newUser.purge()
-        await expect(sut.save(newUser)).rejects.toBeInstanceOf(DeletingNewAggregate)
+        await expect(sut.save(newUser)).rejects.toBeInstanceOf(
+          DeletingNewAggregate
+        )
       })
     })
 

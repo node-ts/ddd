@@ -6,12 +6,11 @@ export class SilenceAlarmSiren extends Command {
   readonly $name = SilenceAlarmSiren.NAME
   readonly $version = 0
 
-  constructor (
+  constructor(
     readonly alarmSystemId: Uuid,
     readonly sirenName: string,
     readonly isActivated: boolean
   ) {
     super()
   }
-
 }

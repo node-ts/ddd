@@ -20,14 +20,12 @@ import { EntityNotFound } from './error'
  * joins when data is optional).
  */
 export class ReadRepository<EntityType extends EntityProperties> {
-
   protected readonly repository: Repository<EntityType>
 
-  constructor (
+  constructor(
     databaseConnection: DataSource,
     private readonly readModelType: ClassConstructor<EntityType>
   ) {
-
     this.repository = databaseConnection.getRepository(this.readModelType)
   }
 
@@ -35,7 +33,7 @@ export class ReadRepository<EntityType extends EntityProperties> {
    * Returns the read model based on its id
    * @throws {EntityNotFound}
    */
-  async getById (id: EntityType['id']): Promise<EntityType> {
+  async getById(id: EntityType['id']): Promise<EntityType> {
     // tslint:disable-next-line:no-any Can't wrangle correct type
     const readModel = await this.repository.findOneBy({ id: id as any })
     if (!readModel) {

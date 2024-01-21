@@ -6,10 +6,7 @@ export class RegisterAlarmSystem extends Command {
   readonly $name = RegisterAlarmSystem.NAME
   readonly $version = 0
 
-  constructor (
-    readonly id: Uuid
-  ) {
+  constructor(readonly id: Uuid) {
     super()
   }
-
 }
