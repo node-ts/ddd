@@ -24,7 +24,7 @@ It doesn't care if you want to run it as a monolith, or split into hundreds of m
 Install the `@node-ts/ddd` package and its dependencies:
 
 ```sh
-npm i @node-ts/ddd @node-ts/ddd-types @node-ts/logger-core @node-ts/bus-core @node-ts/bus-messages inversify --save
+npm i @node-ts/ddd @node-ts/ddd-types @node-ts/bus-core @node-ts/bus-messages --save
 ```
 
 ## Domain layer

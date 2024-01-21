@@ -8,7 +8,7 @@ import { EntityManager, Connection, Repository } from 'typeorm'
 import { Logger } from '@node-ts/logger-core'
 import { Event } from '@node-ts/bus-messages'
 import { DeletingNewAggregate } from './error'
-import { Bus } from '@node-ts/bus-core'
+import { BusInstance as Bus } from '@node-ts/bus-core'
 
 interface UserProperties extends AggregateRootProperties {
   name: string

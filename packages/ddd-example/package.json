@@ -42,14 +42,10 @@
     "typemoq": "^2.1.0",
     "typescript": "^4.6.4"
   },
-  "peerDependencies": {
-    "@node-ts/logger-core": "^0.0.9",
-    "inversify": "^5.0.1"
-  },
   "dependencies": {
-    "@node-ts/bus-messages": "^1.0.4",
-    "@node-ts/ddd": "workspace:^0.1.6",
-    "@node-ts/ddd-types": "workspace:^0.1.4",
+    "@node-ts/bus-messages": "^1.0.6",
+    "@node-ts/ddd": "workspace:^",
+    "@node-ts/ddd-types": "workspace:^",
     "change-case": "^4.1.2",
     "reflect-metadata": "^0.1.13",
     "typeorm": "^0.3.6"

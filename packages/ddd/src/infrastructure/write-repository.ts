@@ -19,7 +19,7 @@ export abstract class WriteRepository <
   WriteModelType extends WriteModel
 > {
   /**
-   * A respository that concretely deals with @template WriteModelType. This should rarely
+   * A repository that concretely deals with @template WriteModelType. This should rarely
    * be used in sub-classes as most retrieval operations should use getById(), whilst all
    * save operations must use save()
    */
