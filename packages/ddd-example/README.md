@@ -2,7 +2,7 @@
 
 This example demonstrates how to use the @node-ts/ddd package in order to create a domain driven design based typescript application.
 
-The application simulates a remote security monitoring company. The security company monitors house alarms for their customers. Each house can have many alarms, and when armed and triggered will send an alert to the monitoring company. 
+The application simulates a remote security monitoring company. The security company monitors house alarms for their customers. Each house can have many alarms, and when armed and triggered will send an alert to the monitoring company.
 
 The monitoring company can then dispatch security personel to go investigate and can remotely silence the alarm.
 

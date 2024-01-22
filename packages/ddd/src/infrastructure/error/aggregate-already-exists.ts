@@ -5,11 +5,13 @@ export class AggregateAlreadyExists extends PersistenceError {
   /**
    * Attempted to persist an aggregate that already exists in the underlying data store
    */
-  constructor (
+  constructor(
     readonly aggregateName: string,
     readonly id: Uuid
   ) {
-    super('Attempted to persist an aggregate that already exists in the underlying data store')
+    super(
+      'Attempted to persist an aggregate that already exists in the underlying data store'
+    )
     Object.setPrototypeOf(this, new.target.prototype)
   }
 }

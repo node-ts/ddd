@@ -2,7 +2,7 @@ import { PersistenceError } from './persistence-error'
 import { Uuid } from '@node-ts/ddd-types'
 
 export class EntityNotFound extends PersistenceError {
-  constructor (
+  constructor(
     readonly entityName: string,
     readonly id: Uuid
   ) {

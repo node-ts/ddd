@@ -6,15 +6,11 @@ import { DataSource, Repository } from 'typeorm'
 import { IMock, Mock } from 'typemoq'
 import { EntityNotFound } from './error'
 
-class UserModel extends Model {
-}
+class UserModel extends Model {}
 
 class UserReadRepository extends ReadRepository<UserModel> {
-  constructor (connection: DataSource) {
-    super(
-      connection,
-      UserModel
-    )
+  constructor(connection: DataSource) {
+    super(connection, UserModel)
   }
 }
 
@@ -53,11 +49,10 @@ describe('ReadRepository', () => {
       })
     })
 
-    describe('for an entity that doesn\'t exist', () => {
+    describe("for an entity that doesn't exist", () => {
       it('should throw an EntityNotFound error', async () => {
         await expect(sut.getById('zzz')).rejects.toBeInstanceOf(EntityNotFound)
       })
     })
   })
-
 })

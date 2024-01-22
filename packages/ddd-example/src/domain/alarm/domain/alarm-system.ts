@@ -1,6 +1,11 @@
 import { AggregateRoot } from '@node-ts/ddd'
 import { Siren, SirenProperties } from './siren'
-import { RegisterAlarmSystem, AlarmSystemRegistered, AlarmSirenSilenced, SilenceAlarmSiren } from '../../../messages'
+import {
+  RegisterAlarmSystem,
+  AlarmSystemRegistered,
+  AlarmSirenSilenced,
+  SilenceAlarmSiren
+} from '../../../messages'
 import { SirenNotFound, SilencedInactiveSiren } from './error'
 import { Uuid, AggregateRootProperties } from '@node-ts/ddd-types'
 
@@ -10,15 +15,15 @@ export interface AlarmSystemProperties extends AggregateRootProperties {
 
 export class AlarmSystem
   extends AggregateRoot
-  implements AlarmSystemProperties {
-
+  implements AlarmSystemProperties
+{
   readonly sirens: SirenProperties[]
 
-  constructor (id: Uuid) {
+  constructor(id: Uuid) {
     super(id)
   }
 
-  static register ({ id }: RegisterAlarmSystem): AlarmSystem {
+  static register({ id }: RegisterAlarmSystem): AlarmSystem {
     const alarmSystemRegistered = new AlarmSystemRegistered(id)
 
     const alarmSystem = new AlarmSystem(id)
@@ -26,7 +31,7 @@ export class AlarmSystem
     return alarmSystem
   }
 
-  silenceAlarm (command: SilenceAlarmSiren): void {
+  silenceAlarm(command: SilenceAlarmSiren): void {
     const siren = this.sirens.find(s => s.name === command.sirenName)
     if (!siren) {
       throw new SirenNotFound(command.sirenName, this.id)
@@ -36,17 +41,20 @@ export class AlarmSystem
       throw new SilencedInactiveSiren(command.sirenName, this.id)
     }
 
-    const alarmSirenSilenced = new AlarmSirenSilenced(this.id, command.sirenName, false)
+    const alarmSirenSilenced = new AlarmSirenSilenced(
+      this.id,
+      command.sirenName,
+      false
+    )
     this.when(alarmSirenSilenced)
   }
 
-  protected whenAlarmSystemRegistered (_: AlarmSystemRegistered): void {
+  protected whenAlarmSystemRegistered(_: AlarmSystemRegistered): void {
     // ...
   }
 
-  protected whenAlarmSirenSilenced (event: AlarmSirenSilenced): void {
+  protected whenAlarmSirenSilenced(event: AlarmSirenSilenced): void {
     const siren = this.sirens.find(s => s.name === event.sirenName)!
     siren.isActivated = event.isActivated
   }
-
 }

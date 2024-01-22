@@ -1,6 +1,5 @@
-import { injectable, unmanaged } from 'inversify'
 import { ClassConstructor } from '@node-ts/logger-core'
-import { Uuid, EntityProperties } from '@node-ts/ddd-types'
+import { EntityProperties } from '@node-ts/ddd-types'
 import { Repository, DataSource } from 'typeorm'
 import { EntityNotFound } from './error'
 
@@ -20,16 +19,13 @@ import { EntityNotFound } from './error'
  * design joins with this in mind (ie: inner joins when all data must be present, outer
  * joins when data is optional).
  */
-@injectable()
 export class ReadRepository<EntityType extends EntityProperties> {
-
   protected readonly repository: Repository<EntityType>
 
-  constructor (
+  constructor(
     databaseConnection: DataSource,
-    @unmanaged() private readonly readModelType: ClassConstructor<EntityType>
+    private readonly readModelType: ClassConstructor<EntityType>
   ) {
-
     this.repository = databaseConnection.getRepository(this.readModelType)
   }
 
@@ -37,7 +33,7 @@ export class ReadRepository<EntityType extends EntityProperties> {
    * Returns the read model based on its id
    * @throws {EntityNotFound}
    */
-  async getById (id: EntityType['id']): Promise<EntityType> {
+  async getById(id: EntityType['id']): Promise<EntityType> {
     // tslint:disable-next-line:no-any Can't wrangle correct type
     const readModel = await this.repository.findOneBy({ id: id as any })
     if (!readModel) {

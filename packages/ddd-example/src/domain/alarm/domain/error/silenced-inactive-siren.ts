@@ -1,7 +1,7 @@
 import { Uuid } from '@node-ts/ddd-types'
 
 export class SilencedInactiveSiren extends Error {
-  constructor (
+  constructor(
     readonly sirenName: string,
     readonly alarmSystemId: Uuid
   ) {
