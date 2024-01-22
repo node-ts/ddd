@@ -48,7 +48,6 @@
     "@node-ts/ddd-types": "workspace:^",
     "@node-ts/logger-core": "^0.1.1",
     "change-case": "^4.1.2",
-    "reflect-metadata": "^0.1.13",
     "typeorm": "^0.3.19"
   }
 }

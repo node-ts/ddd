@@ -43,7 +43,7 @@ importers:
         version: 8.0.3
       jest:
         specifier: ^28.1.0
-        version: 28.1.0
+        version: 28.1.0(@types/node@17.0.32)
       lint-staged:
         specifier: ^15.2.0
         version: 15.2.0
@@ -80,9 +80,6 @@ importers:
       change-case:
         specifier: ^4.1.2
         version: 4.1.2
-      reflect-metadata:
-        specifier: ^0.1.13
-        version: 0.1.13
       typeorm:
         specifier: ^0.3.19
         version: 0.3.19
@@ -120,6 +117,9 @@ importers:
       change-case:
         specifier: ^4.1.2
         version: 4.1.2
+      inversify:
+        specifier: ^6.0.1
+        version: 6.0.2
       reflect-metadata:
         specifier: ^0.1.13
         version: 0.1.13
@@ -136,12 +136,12 @@ importers:
       '@types/jest':
         specifier: ^27.5.1
         version: 27.5.1
-      inversify:
-        specifier: ^6.0.1
-        version: 6.0.2
+      '@types/node':
+        specifier: ^17.0.32
+        version: 17.0.32
       jest:
         specifier: ^28.1.0
-        version: 28.1.0
+        version: 28.1.0(@types/node@17.0.32)
       nodemon:
         specifier: ^2.0.16
         version: 2.0.22
@@ -2705,7 +2705,6 @@ packages:
 
   /inversify@6.0.2:
     resolution: {integrity: sha512-i9m8j/7YIv4mDuYXUAcrpKPSaju/CIly9AHK5jvCBeoiM/2KEsuCQTTP+rzSWWpLYWRukdXFSl6ZTk2/uumbiA==}
-    dev: true
 
   /is-array-buffer@3.0.2:
     resolution: {integrity: sha512-y+FyyR/w8vfIRq4eQcM1EYgSTnmHXPqaF+IgzgraytCFq5Xh8lllDVmAZolPJiZttZLeFSINPYMaEJ7/vWUa1w==}
@@ -2974,7 +2973,7 @@ packages:
       - supports-color
     dev: true
 
-  /jest-cli@28.1.0:
+  /jest-cli@28.1.0(@types/node@17.0.32):
     resolution: {integrity: sha512-fDJRt6WPRriHrBsvvgb93OxgajHHsJbk4jZxiPqmZbMDRcHskfJBBfTyjFko0jjfprP544hOktdSi9HVgl4VUQ==}
     engines: {node: ^12.13.0 || ^14.15.0 || ^16.10.0 || >=17.0.0}
     hasBin: true
@@ -3350,7 +3349,7 @@ packages:
       supports-color: 8.1.1
     dev: true
 
-  /jest@28.1.0:
+  /jest@28.1.0(@types/node@17.0.32):
     resolution: {integrity: sha512-TZR+tHxopPhzw3c3560IJXZWLNHgpcz1Zh0w5A65vynLGNcg/5pZ+VildAd7+XGOu6jd58XMY/HNn0IkZIXVXg==}
     engines: {node: ^12.13.0 || ^14.15.0 || ^16.10.0 || >=17.0.0}
     hasBin: true
@@ -3362,7 +3361,7 @@ packages:
     dependencies:
       '@jest/core': 28.1.0
       import-local: 3.1.0
-      jest-cli: 28.1.0
+      jest-cli: 28.1.0(@types/node@17.0.32)
     transitivePeerDependencies:
       - '@types/node'
       - supports-color
@@ -4044,6 +4043,10 @@ packages:
   /reflect-metadata@0.1.13:
     resolution: {integrity: sha512-Ts1Y/anZELhSsjMcU605fU9RE4Oi3p5ORujwbIKXfWa+0Zxs510Qrmrce5/Jowq3cHSZSJqBjypxmHarc+vEWg==}
 
+  /reflect-metadata@0.1.14:
+    resolution: {integrity: sha512-ZhYeb6nRaXCfhnndflDK8qI6ZQ/YcWZCISRAWICW9XYqMUwjZM9Z0DveWX/ABN01oxSHwVxKQmxeYZSsm0jh5A==}
+    dev: false
+
   /regexp.prototype.flags@1.5.1:
     resolution: {integrity: sha512-sy6TXMN+hnP/wMy+ISxg3krXx7BAtWVO4UouuCN/ziM9UEne0euamVNafDfvC83bRNr95y0V5iijeDQFUNpvrg==}
     engines: {node: '>= 0.4'}
@@ -4568,7 +4571,7 @@ packages:
       '@types/jest': 27.5.1
       bs-logger: 0.2.6
       fast-json-stable-stringify: 2.1.0
-      jest: 28.1.0
+      jest: 28.1.0(@types/node@17.0.32)
       jest-util: 28.1.0
       json5: 2.2.1
       lodash.memoize: 4.1.2
@@ -4603,7 +4606,7 @@ packages:
       '@types/jest': 27.5.1
       bs-logger: 0.2.6
       fast-json-stable-stringify: 2.1.0
-      jest: 28.1.0
+      jest: 28.1.0(@types/node@17.0.32)
       jest-util: 28.1.0
       json5: 2.2.1
       lodash.memoize: 4.1.2
@@ -4785,7 +4788,7 @@ packages:
       dotenv: 16.3.2
       glob: 10.3.10
       mkdirp: 2.1.6
-      reflect-metadata: 0.1.13
+      reflect-metadata: 0.1.14
       sha.js: 2.4.11
       tslib: 2.6.2
       uuid: 9.0.1

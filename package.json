@@ -4,7 +4,7 @@
   "description": "",
   "private": true,
   "scripts": {
-    "build": "pnpm run build --recursive",
+    "build": "pnpm --filter '@node-ts/**' run build",
     "format": "prettier --ignore-path .gitignore --write --config .prettierrc.js . \"!**/*.(yml|yaml|mdx)\"",
     "format:check": "prettier --ignore-path .gitignore --check --config .prettierrc.js . \"!**/*.(yml|yaml|mdx)\" \"!**/services/client-app/**/*\" \"!**/services/system-integration/**/*.(html|json|js|css)\"",
     "format:precommit": "lint-staged",
