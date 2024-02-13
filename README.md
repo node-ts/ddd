@@ -185,7 +185,7 @@ export class User extends AggregateRoot implements UserProperties {
 
 This approach to modeling the business domain is well documented. It's clear what actions a user can perform, what the business rules are those actions, and what data updates as a result.
 
-Each time an action method is called on a domain objecft, an event is prepared and applied to the `when()` protected method. This method does a number of things:
+Each time an action method is called on a domain object, an event is prepared and applied to the `when()` protected method. This method does a number of things:
 
 * It adds the event into the list of new changes made to the aggregate
 * It increments the verison of the aggregate as data has now changed
